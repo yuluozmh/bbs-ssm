@@ -1,82 +1,28 @@
 package com.liang.bean;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
 import java.util.Date;
 
+/**
+ * @author maliang
+ * @create 2019-05-25 21:12
+ */
+@Data
+@ApiModel(value = "评论实体类", description = "评论信息描述类")
 public class Comment {
-    // 评论id
+    @ApiModelProperty(value = "评论编号")
     private String pid;
-    // 评论内容
+    @ApiModelProperty(value = "评论内容")
     private String pcontent;
-    // 评论者id
+    @ApiModelProperty(value = "用户编号")
     private String userid;
-    // 被评论文章id
+    @ApiModelProperty(value = "文章编号")
     private String fid;
-    // 评论创建时间
+    @ApiModelProperty(value = "评论创建时间")
     private Date createTime;
-    // 评论更新时间
+    @ApiModelProperty(value = "评论更新时间")
     private Date updateTime;
-
-    public Comment() {
-		super();
-	}
-
-    public String getPid() {
-        return pid;
-    }
-
-    public void setPid(String pid) {
-        this.pid = pid;
-    }
-
-    public String getPcontent() {
-        return pcontent;
-    }
-
-    public void setPcontent(String pcontent) {
-        this.pcontent = pcontent;
-    }
-
-    public String getUserid() {
-        return userid;
-    }
-
-    public void setUserid(String userid) {
-        this.userid = userid;
-    }
-
-    public String getFid() {
-        return fid;
-    }
-
-    public void setFid(String fid) {
-        this.fid = fid;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "pid='" + pid + '\'' +
-                ", pcontent='" + pcontent + '\'' +
-                ", userid='" + userid + '\'' +
-                ", fid='" + fid + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                '}';
-    }
 }

@@ -21,6 +21,7 @@ import java.util.stream.Stream;
  * google使用的开源的工具类-Thumbnailator
  * 问题：经过使用后的反馈，这个工具无法正确压缩出png格式的图片
  * 解决：建议将图片压缩后的格式设置成jpg来解决；.outputFormat("jpg")
+ *
  * @author maliang
  * @create 2020-06-01 15:57
  */
@@ -40,8 +41,8 @@ public class ThumbnailatorUtil {
     private List<String> suffixList = null;
 
     @PostConstruct
-    private void init(){
-        if (StringUtil.isNotEmpty(suffix)){
+    private void init() {
+        if (StringUtil.isNotEmpty(suffix)) {
             suffixList = Stream.of(suffix.split("(, *)+")).map(s -> s.trim().toLowerCase()).collect(Collectors.toList());
         }
     }
@@ -64,9 +65,10 @@ public class ThumbnailatorUtil {
 
     /**
      * 按照比例进行缩放
+     *
      * @param sourceImg 原图片路径
      * @param resultImg 处理后的图片路径
-     * @param del 是否删除源文件（true删除、false不删）
+     * @param del       是否删除源文件（true删除、false不删）
      * @return 处理后的图片路径
      * @throws IOException
      */
@@ -92,9 +94,10 @@ public class ThumbnailatorUtil {
 
     /**
      * 裁剪
+     *
      * @param sourceImg 原图片路径
      * @param resultImg 处理后的图片路径
-     * @param del 是否删除源文件（true删除、false不删）
+     * @param del       是否删除源文件（true删除、false不删）
      * @throws IOException
      */
     public void getRegion(String sourceImg, String resultImg, boolean del) throws IOException {
@@ -117,6 +120,7 @@ public class ThumbnailatorUtil {
 
     /**
      * 按指定大小进行缩放（比例不变）
+     *
      * @param sourceImg 原图片路径
      * @param resultImg 处理后的图片路径
      * @throws IOException
@@ -132,6 +136,7 @@ public class ThumbnailatorUtil {
 
     /**
      * 不按照比例，指定大小进行缩放
+     *
      * @param sourceImg 原图片路径
      * @param resultImg 处理后的图片路径
      * @throws IOException
@@ -142,6 +147,7 @@ public class ThumbnailatorUtil {
 
     /**
      * 旋转
+     *
      * @param sourceImg 原图片路径
      * @param resultImg 处理后的图片路径
      * @throws IOException
@@ -152,6 +158,7 @@ public class ThumbnailatorUtil {
 
     /**
      * 水印
+     *
      * @param sourceImg 原图片路径
      * @param resultImg 处理后的图片路径
      * @param watermark 水印图路径
@@ -164,6 +171,7 @@ public class ThumbnailatorUtil {
 
     /**
      * 转化图像格式
+     *
      * @param sourceImg 原图片路径
      * @param resultImg 处理后的图片路径
      * @throws IOException
@@ -174,6 +182,7 @@ public class ThumbnailatorUtil {
 
     /**
      * 输出到OutputStream
+     *
      * @param sourceImg 原图片路径
      * @param resultImg 处理后的图片路径
      * @throws IOException
@@ -185,6 +194,7 @@ public class ThumbnailatorUtil {
 
     /**
      * 输出到BufferedImage
+     *
      * @param sourceImg 原图片路径
      * @param resultImg 处理后的图片路径
      * @throws IOException

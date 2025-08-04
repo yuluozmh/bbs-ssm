@@ -106,7 +106,7 @@ function register() {
     };
     //调ajax
     $.ajax({
-        url: APP_PATH + "/api/rest/nanshengbbs/v3.0/user/setSignUp",
+        url: APP_PATH + apiUrl + "/user/setSignUp",
         data: data,
         type: "POST",
         dataType: "json",
@@ -175,7 +175,7 @@ function login() {
     };
     //调ajax
     $.ajax({
-        url: APP_PATH + "/api/rest/nanshengbbs/v3.0/user/getLogin",
+        url: APP_PATH + apiUrl + "/user/getLogin",
         data: data,
         type: "post",
         dataType: "json",
@@ -210,7 +210,7 @@ function login() {
 $("#userExit").click(function () {
     //调ajax
     $.ajax({
-        url: APP_PATH + "/api/rest/nanshengbbs/v3.0/user/userExit",
+        url: APP_PATH + apiUrl + "/user/userExit",
         type: "get",
         dataType: "json",
         success: function(data){

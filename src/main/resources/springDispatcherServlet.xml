@@ -6,19 +6,19 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-	
+
 	<!-- springmvc的配置文件，包含网站跳转逻辑的控制，配置 -->
 	<context:component-scan base-package="com.liang" use-default-filters="false">
 		<!-- 只扫描控制器 -->
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
-	
+
 	<!-- 配置视图解析器，方便页面返回 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/views/"></property>
-		<property name="suffix" value=".jsp"></property>
+		<property name="prefix" value="/WEB-INF/views/"/>
+		<property name="suffix" value=".jsp"/>
 	</bean>
-	
+
 	<!-- 配置文件上传实现类 -->
 	<context:property-placeholder location="classpath:pathconfig.properties" />
 	<bean id="multipartResolver" class="com.liang.utils.PostAndPutCommonsMultipartResolver">
@@ -26,7 +26,7 @@
 		<property name="defaultEncoding" value="UTF-8" />
 <!--		<property name="maxUploadSize" value="${source.file.length}" />-->
 	</bean>
-	
+
 	<!--两个标准配置  -->
 	<!-- 将springmvc不能处理的请求交给tomcat -->
 	<mvc:default-servlet-handler/>
@@ -36,7 +36,7 @@
 	<mvc:interceptors>
 		<!--登录拦截器-->
 		<mvc:interceptor>
-			<mvc:mapping path="/api/rest/nanshengbbs/**"/>
+			<mvc:mapping path="/api/rest/nansin/**"/>
 			<!-- 不拦截 -->
 			<mvc:exclude-mapping path="/static/**"/>
 			<bean class="com.liang.interceptor.LoginInterceptor"/>

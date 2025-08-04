@@ -6,11 +6,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>管理员-头部</title>
-<%
-	pageContext.setAttribute("APP_PATH", request.getContextPath());
-%>
-<link href="${APP_PATH }/static/bootstrap/css/bootstrap.css" rel="stylesheet" />
-<link href="${APP_PATH }/static/css/base.css" rel="stylesheet" />
+	<%
+		pageContext.setAttribute("APP_PATH", request.getContextPath());
+	%>
+	<link href="${APP_PATH }/static/bootstrap/css/bootstrap.css" rel="stylesheet" />
+	<link href="${APP_PATH }/static/css/base.css" rel="stylesheet" />
 </head>
 <body>
 <%-- 方便ajax获取APP_PATH --%>
@@ -38,11 +38,6 @@
 			<%-- 用户端 --%>
 			<div>
 				<ul class="nav navbar-nav">
-					<li>
-						<a href="${APP_PATH }/admin/index.jsp" style="height: 50px">
-							<span>刷新页面</span>
-						</a>
-					</li>
 					<li>
 						<a href="${APP_PATH }/index.jsp" style="height: 50px" target="_blank">
 							<span>用户端</span>
@@ -111,7 +106,7 @@
 				<ul class="nav navbar-nav">
 					<li>
 						<a href="javascript:void(0)">
-							<small style="color: #e4e4e4;">v2.8.2</small>
+							<small id="admin_versions_mark" style="color: #e4e4e4;"></small>
 						</a>
 					</li>
 				</ul>
@@ -120,10 +115,10 @@
 	</nav>
 </div>
 
-<script src="${APP_PATH }/static/js/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="${APP_PATH }/static/bootstrap/js/bootstrap.js"></script>
 <script src="${APP_PATH }/static/bootstrap/js/npm.js"></script>
-<script src="${APP_PATH }/static/js/layer/layer.js"></script>
+<script src="${APP_PATH }/static/layer/layer.js"></script>
 
 <script src="${APP_PATH}/static/js/common.js"></script>
 <script src="${APP_PATH}/static/js/admin/head.js"></script>

@@ -1,60 +1,53 @@
 package com.liang.service;
 
 import com.liang.bean.Enjoy;
-import com.liang.dao.EnjoyMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class EnjoyService {
+public interface EnjoyService {
+    /**
+     * 添加点赞
+     *
+     * @param enjoy
+     */
+    void setEnjoy(Enjoy enjoy);
 
-	@Autowired
-	EnjoyMapper enjoyMapper;
+    /**
+     * 删除点赞(按eid)
+     *
+     * @param eid
+     */
+    void deleteEnjoy(String eid);
 
-	/**
-	 * 添加点赞
-	 * @param enjoy
-	 */
-	public void setEnjoy(Enjoy enjoy) {
+    /**
+     * 删除点赞（按userid和fid）
+     *
+     * @param fid
+     * @param userid
+     */
+    void deleteEnjoyUseridAndFid(String fid, String userid);
 
-		enjoyMapper.insert(enjoy);
-	}
+    /**
+     * 查询点赞信息（无条件）
+     *
+     * @return
+     */
+    List<Enjoy> getEnjoy();
 
-	/**
-	 * 删除点赞(按eid)
-	 * @param eid
-	 */
-	public void deleteEnjoy(String eid) {
+    /**
+     * 按点赞者id和被点赞文章id进行查询
+     *
+     * @param fid
+     * @param userid
+     * @return
+     */
+    Enjoy getEnjoyFid(String fid, String userid);
 
-		enjoyMapper.deleteByKey(eid);
-	}
-
-	/**
-	 * 删除点赞（按userid和fid）
-	 * @param enjoy
-	 */
-	public void deleteEnjoyUseridAndFid(Enjoy enjoy) {
-
-		enjoyMapper.deleteByUF(enjoy);
-	}
-
-	/**
-	 * 查询点赞信息（无条件）
-	 * @return
-	 */
-	public List<Enjoy> getEnjoy() {
-		
-		return enjoyMapper.selectEnjoy();
-	}
-
-	/**
-	 * 按点赞者id和被点赞文章id进行查询
-	 * @param enjoy
-	 * @return
-	 */
-    public Enjoy getEnjoyFid(Enjoy enjoy) {
-    	return enjoyMapper.selectEnjoyByUF(enjoy);
-    }
+    /**
+     * 获取某一文章的点赞数
+     *
+     * @param fid
+     * @return
+     */
+    int getCountByFid(String fid);
 }

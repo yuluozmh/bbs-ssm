@@ -20,14 +20,11 @@
 	<!--=================== 数据源的配置 ================ -->
 	<!-- 引入外部的配置文件 -->
 	<context:property-placeholder location="classpath:dbconfig.properties" />
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property>
-		<property name="driverClass" value="${jdbc.driverClass}"></property>
-		<property name="user" value="${jdbc.user}"></property>
-		<property name="password" value="${jdbc.password}"></property>
-		<property name="testConnectionOnCheckin" value="false"/>
-    	<property name="testConnectionOnCheckout" value="true"/>
-    	<property name="preferredTestQuery" value="SELECT 1"/>
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+		<property name="driverClassName" value="${mysql.driverClass}"/>
+		<property name="url" value="${mysql.url}"/>
+		<property name="username" value="${mysql.username}"/>
+		<property name="password" value="${mysql.password}"/>
 	</bean>
 	<!--=================== 数据源的配置-end ================ -->
 
@@ -35,16 +32,16 @@
 	<!--================== 配置和MyBatis的整合=============== -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<!-- 指定mybatis全局配置文件的位置 -->
-		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+		<property name="configLocation" value="classpath:mybatis-config.xml"/>
 		<property name="dataSource" ref="dataSource" />
 		<!-- 指定mybatis，mapper文件的位置 -->
-		<property name="mapperLocations" value="classpath:mapper/*.xml"></property>
+		<property name="mapperLocations" value="classpath:mapper/*.xml"/>
 	</bean>
 
 	<!-- 配置扫描器，将mybatis接口的实现加入到ioc容器中 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<!--扫描所有dao接口的实现，加入到ioc容器中 -->
-		<property name="basePackage" value="com.liang.dao"></property>
+		<property name="basePackage" value="com.liang.dao"/>
 	</bean>
 	<!--================== 配置和MyBatis的整合-end=============== -->
 

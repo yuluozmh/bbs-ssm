@@ -1,77 +1,35 @@
 package com.liang.bean;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 /**
- * master分支测试 -- 代码贡献测试
+ * @author maliang
+ * @create 2019-05-25 21:12
  */
+@Data
+@ApiModel(value = "管理员实体类", description = "管理员信息描述类")
 public class Admin {
-	// 管理员id
-	private String aid;
-	// 管理员名字
-	private String aname;
-	// 管理员密码
-	@JsonIgnore
-	private String apassword;
-	// 管理员创建时间
-	private Date createTime;
-	// 管理员更新时间
-	private Date updateTime;
+    @ApiModelProperty(value = "管理员编号", hidden = true)
+    private String aid;
 
-	public Admin() {
-		super();
-	}
+    @ApiModelProperty(value = "管理员名称", required = true)
+    @NotBlank(message = "管理员名称不能为空")
+    private String aname;
 
-	public String getAid() {
-		return aid;
-	}
+    @ApiModelProperty(value = "管理员密码", required = true)
+    @NotBlank(message = "管理员密码不能为空")
+    @JsonIgnore
+    private String apassword;
 
-	public void setAid(String aid) {
-		this.aid = aid;
-	}
+    @ApiModelProperty(value = "管理员创建时间", hidden = true)
+    private Date createTime;
 
-	public String getAname() {
-		return aname;
-	}
-
-	public void setAname(String aname) {
-		this.aname = aname;
-	}
-
-	public String getApassword() {
-		return apassword;
-	}
-
-	public void setApassword(String apassword) {
-		this.apassword = apassword;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-
-	@Override
-	public String toString() {
-		return "Admin{" +
-				"aid='" + aid + '\'' +
-				", aname='" + aname + '\'' +
-				", apassword='" + apassword + '\'' +
-				", createTime=" + createTime +
-				", updateTime=" + updateTime +
-				'}';
-	}
+    @ApiModelProperty(value = "管理员更新时间", hidden = true)
+    private Date updateTime;
 }

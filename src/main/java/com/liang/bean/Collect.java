@@ -1,60 +1,24 @@
 package com.liang.bean;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
 import java.util.Date;
 
+/**
+ * @author maliang
+ * @create 2019-05-25 21:12
+ */
+@Data
+@ApiModel(value = "收藏实体类", description = "收藏信息描述类")
 public class Collect {
-	// 收藏id
-	private String sid;
-	// 收藏者id
-	private String userid;
-	// 收藏文章id
-	private String fid;
-	// 收藏时间
-	private Date createTime;
-
-	public Collect() {
-		super();
-	}
-
-	public String getSid() {
-		return sid;
-	}
-
-	public void setSid(String sid) {
-		this.sid = sid;
-	}
-
-	public String getUserid() {
-		return userid;
-	}
-
-	public void setUserid(String userid) {
-		this.userid = userid;
-	}
-
-	public String getFid() {
-		return fid;
-	}
-
-	public void setFid(String fid) {
-		this.fid = fid;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	@Override
-	public String toString() {
-		return "Collect{" +
-				"sid='" + sid + '\'' +
-				", userid='" + userid + '\'' +
-				", fid='" + fid + '\'' +
-				", createTime=" + createTime +
-				'}';
-	}
+    @ApiModelProperty(value = "收藏编号")
+    private String sid;
+    @ApiModelProperty(value = "用户编号")
+    private String userid;
+    @ApiModelProperty(value = "文章编号")
+    private String fid;
+    @ApiModelProperty(value = "收藏时间")
+    private Date createTime;
 }

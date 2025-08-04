@@ -3,6 +3,7 @@ package com.liang.utils;
 import com.google.gson.Gson;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
+import com.qiniu.storage.BucketManager;
 import com.qiniu.storage.Configuration;
 import com.qiniu.storage.Region;
 import com.qiniu.storage.UploadManager;
@@ -46,7 +47,7 @@ public class QiniuUtil {
     private UploadManager uploadManager;
 
     @PostConstruct
-    private void init(){
+    private void init() {
         auth = Auth.create(AccessKey, SecretKey);
         upToken = auth.uploadToken(bucket);
         cfg = new Configuration(Region.huanan());
@@ -63,18 +64,33 @@ public class QiniuUtil {
 
     /**
      * 普通上传（上传本地文件）
+     *
      * @param localFilePath 文件全路径
-     * @param fileName 七牛保存的文件名
+     * @param fileName      七牛保存的文件名
      * @throws IOException
      */
     public String upload(String localFilePath, String fileName) throws QiniuException {
-        return null;
+        Response res;
+        try {
+            // 调用put方法上传scope
+            res = uploadManager.put(localFilePath, fileName, upToken);
+        } catch (Exception e) {
+            System.out.println("我过期啦...");
+            // token默认是生命周期是1小时，过期重新生成
+            upToken = auth.uploadToken(bucket);
+            // 重新来一次
+            res = uploadManager.put(localFilePath, fileName, upToken);
+        }
+        // 解析上传成功的结果
+        DefaultPutRet putRet = new Gson().fromJson(res.bodyString(), DefaultPutRet.class);
+        return putRet.key;
     }
 
     /**
      * 字节数组上传
+     *
      * @param uploadBytes 文件字节数组
-     * @param fileName 七牛保存的文件名
+     * @param fileName    七牛保存的文件名
      * @throws IOException
      */
     public String upload(byte[] uploadBytes, String fileName) throws Exception {
@@ -87,8 +103,9 @@ public class QiniuUtil {
 
     /**
      * 数据流上传
+     *
      * @param inputStream 文件数据流
-     * @param fileName 七牛保存的文件名
+     * @param fileName    七牛保存的文件名
      * @throws IOException
      */
     public String upload(InputStream inputStream, String fileName) throws Exception {
@@ -97,5 +114,17 @@ public class QiniuUtil {
         // 解析上传成功的结果
         DefaultPutRet putRet = new Gson().fromJson(res.bodyString(), DefaultPutRet.class);
         return putRet.key;
+    }
+
+    /**
+     * 删除文件
+     *
+     * @param fileName
+     * @return
+     */
+    public int deleteFile(String fileName) throws QiniuException {
+        BucketManager bucketManager = new BucketManager(auth, cfg);
+        Response res = bucketManager.delete(bucket, fileName);
+        return res.statusCode;
     }
 }

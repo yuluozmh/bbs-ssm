@@ -1,52 +1,38 @@
 package com.liang.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.liang.bean.Via;
-import com.liang.dao.ViaMapper;
+import org.springframework.web.multipart.MultipartFile;
 
-@Service
-public class ViaService {
+public interface ViaService {
+    /**
+     * 上传用户头像（插入）（via）
+     *
+     * @param file
+     * @param userid
+     * @return
+     * @throws Exception
+     */
+    String setVia(MultipartFile file, String userid) throws Exception;
 
-	@Autowired
-	ViaMapper viaMapper;
+    /**
+     * 删除用户对应的头像信息
+     *
+     * @param userid
+     */
+    void deleteVia(String userid);
 
-	/**
-	 * 上传用户头像（插入）（via）
-	 *
-	 * @param via
-	 */
-	public void setVia(Via via) {
+    /**
+     * 按userid修改用户头像信息（via）
+     *
+     * @param via
+     */
+    void updateVia(Via via);
 
-		viaMapper.insert(via);
-	}
-
-	/**
-	 * 删除用户对应的头像信息
-	 * @param userid
-	 */
-	public void deleteVia(String userid) {
-
-		viaMapper.deleteByKey(userid);
-	}
-
-	/**
-	 * 按userid修改用户头像信息（via）
-	 * @param via
-	 */
-	public void updateVia(Via via) {
-
-		viaMapper.updateByKey(via);
-	}
-
-	/**
-	 * 按userid查询用户头像信息（via）
-	 * @param userid
-	 * @return
-	 */
-	public Via getVia(String userid) {
-
-		return viaMapper.selectViaByKey(userid);
-	}
+    /**
+     * 按userid查询用户头像信息（via）
+     *
+     * @param userid
+     * @return
+     */
+    Via getVia(String userid);
 }

@@ -16,7 +16,7 @@ $(".cut-ybp").click(function() {
 /*########################################### 用户管理 ############################################################*/
 $(".cut-yhgl").click(function() {
     $.ajax({
-        url: APP_PATH + "/api/rest/nanshengbbs/v3.0/user/getUser",
+        url: APP_PATH + apiUrl + "/user/getUser",
         type: "get",
         dataType: "json",
         success: function (data) {
@@ -45,7 +45,7 @@ $(".cut-yhgl").click(function() {
 /*########################################### 文章管理 ############################################################*/
 $(".cut-tzgl").click(function() {
     $.ajax({
-        url: APP_PATH + "/api/rest/nanshengbbs/v3.0/article/getArticleManagement",
+        url: APP_PATH + apiUrl + "/article/getArticleManagement",
         type: "get",
         dataType: "json",
         success: function (data) {
@@ -73,7 +73,7 @@ $(".cut-tzgl").click(function() {
 /*########################################### 板块管理 ############################################################*/
 $(".cut-bkgl").click(function() {
     $.ajax({
-        url: APP_PATH + "/api/rest/nanshengbbs/v3.0/plate/getPlate",
+        url: APP_PATH + apiUrl + "/plate/getPlate",
         type: "get",
         dataType: "json",
         success: function (data) {
@@ -99,7 +99,7 @@ $(".cut-bkgl").click(function() {
 /*########################################### 访问管理 ############################################################*/
 $(".cut-fwjl").click(function() {
     $.ajax({
-        url: APP_PATH + "/api/rest/nanshengbbs/v3.0/visit/getVisit",
+        url: APP_PATH + apiUrl + "/visit/getVisit",
         type: "get",
         dataType: "json",
         success: function (data) {
@@ -110,13 +110,13 @@ $(".cut-fwjl").click(function() {
             if (code == 200) {
                 $("#listVisit_all").html(getVisitList(data.data));
                 //访问总数
-                $("#visit_total").html(data.data.total + '条');
+                $("#visit_total").html(data.data.total + '/Total');
                 //月访问量
-                $("#visit_month").html(data.data.month + '条');
+                $("#visit_month").html(data.data.month + '/Month');
                 //周访问量
-                $("#visit_week").html(data.data.week + '条');
+                $("#visit_week").html(data.data.week + '/Week');
                 //日访问量
-                $("#visit_day").html(data.data.day + '条');
+                $("#visit_day").html(data.data.day + '/Day');
 
                 /*----------------------------------------- 分页（用户管理） ----------------------------------------*/
                 getPaging(data.data, "visit");
@@ -131,11 +131,20 @@ $(".cut-fwjl").click(function() {
 });
 /*########################################### 访问管理-end ############################################################*/
 
+/*------------------------------------------ 板本管理 ------------------------------------------*/
+$(".cut-bbgl").click(function() {
+    getVersions();
+});
+/*------------------------------------------ 轮播图管理 ------------------------------------------*/
+$(".cut-lbtgl").click(function() {
+    getSlider();
+});
+
 // 仪表盘
 function dashboard() {
     // 用户、文章、板块、访问总数
     $.ajax({
-        url: APP_PATH + "/api/rest/nanshengbbs/v3.0/admin/getUserArticlePlateVisitSum",
+        url: APP_PATH + apiUrl + "/admin/getUserArticlePlateVisitSum",
         type: "get",
         dataType: "json",
         success: function (data) {
@@ -159,7 +168,7 @@ function dashboard() {
     });
     // 排行版
     $.ajax({
-        url: APP_PATH + "/api/rest/nanshengbbs/v3.0/user/getUserRankByArticleSum",
+        url: APP_PATH + apiUrl + "/user/getUserRankByArticleSum",
         type: "get",
         dataType: "json",
         success: function (data) {
@@ -179,7 +188,7 @@ function dashboard() {
     });
     // 新注册用户
     $.ajax({
-        url: APP_PATH + "/api/rest/nanshengbbs/v3.0/user/getNewUser",
+        url: APP_PATH + apiUrl + "/user/getNewUser",
         type: "get",
         dataType: "json",
         success: function (data) {

@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>南生论坛-捐赠详情</title>
+    <title>南生论坛-有偿服务</title>
     <%
         pageContext.setAttribute("APP_PATH", request.getContextPath());
     %>
@@ -13,11 +13,11 @@
 <body>
 <!-- 首页-头部 -->
 <jsp:include page="/head/head.jsp"></jsp:include>
-<!-- 首页-修改文章 -->
-<jsp:include page="/donate/donate.jsp"></jsp:include>
 <!-- 首页-基本信息设置 -->
 <jsp:include page="/head/setup.jsp"></jsp:include>
 <!-- 首页-登录、注册 -->
 <jsp:include page="/login/login.jsp"></jsp:include>
+<!-- 首页-页脚 -->
+<jsp:include page="/head/footer.jsp"></jsp:include>
 </body>
 </html>

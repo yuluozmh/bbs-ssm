@@ -10,6 +10,7 @@
 	<%
 		pageContext.setAttribute("APP_PATH", request.getContextPath());
 	%>
+	<link rel="stylesheet" href="${APP_PATH}/static/editor.md-master/css/editormd.min.css"/>
 </head>
 <body style="background-color: #ffffff">
 <div class="container">
@@ -68,6 +69,7 @@
 	</form>
 </div>
 
+<script src="${APP_PATH}/static/editor.md-master/editormd.min.js"></script>
 <script src="${APP_PATH }/static/js/images.js"></script>
 <script src="${APP_PATH }/static/js/content/articleEdit.js"></script>
 </body>

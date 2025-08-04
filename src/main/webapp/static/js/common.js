@@ -6,6 +6,9 @@ var userPhoto = document.getElementById("session_userPhoto").value;
 var aname = document.getElementById("session_aname").value;
 var acreateTime = document.getElementById("session_acreateTime").value;
 
+// 公共api接口中间地址
+var apiUrl = "/api/rest/nansin/v3.0";
+
 // 设定上传源文件允许的最大值（1024*1024*10=10M）
 const sourceFileSize = 10485760;
 // 用户名字数限制（max）
@@ -44,6 +47,30 @@ $.ajaxSetup({
         }
     },
     type : 'POST'
+});
+
+/* 右下角固定块 */
+layui.use(['util', 'laydate', 'layer'], function(){
+    var util = layui.util,
+        laydate = layui.laydate,
+        $ = layui.$,
+        layer = layui.layer;
+    // 固定块
+    util.fixbar({
+        bar1: '&#xe664;',                     // 默认false。如果值为true，则显示第一个bar，带有一个默认图标。如果值为图标字符，则显示第一个bar，并覆盖默认图标
+        bar2: '&#xe674;',
+        css: {right: 20, bottom: 50},   // 你可以通过重置bar的位置，比如 css: {right: 100, bottom: 100}
+        bgcolor: '#08a8d8',             // 自定义区块背景色
+        showHeight: 200,                // 用于控制出现TOP按钮的滚动条高度临界值。默认：200
+        click: function(type){          // 点击bar的回调，函数返回一个type参数，用于区分bar类型。支持的类型有：bar1、bar2、top
+            if(type === 'bar1'){
+                // 毒鸡汤
+                window.location.href = APP_PATH + "/soup.jsp";
+            } else if(type === 'bar2') {
+                layer.msg('尽请期待...')
+            }
+        }
+    });
 });
 
 /**
@@ -93,6 +120,22 @@ function dateTimeFormat(date) {
     var minutes = time.getMinutes();
     var seconds = time.getSeconds();
     return year + '-' + add0(month) + '-' + add0(day) + ' ' + add0(hours) + ':' + add0(minutes) + ':' + add0(seconds);
+}
+/**
+ * 时间戳格式化(yyyy-MM-dd HH:mm)
+ * @param date
+ * @returns {string}
+ * @constructor
+ */
+function formatYMDHM(date) {
+    // date是整数，否则要parseInt转换
+    var time = new Date(date);
+    var year = time.getFullYear();
+    var month = time.getMonth() + 1;
+    var day = time.getDate();
+    var hours = time.getHours();
+    var minutes = time.getMinutes();
+    return year + '-' + add0(month) + '-' + add0(day) + ' ' + add0(hours) + ':' + add0(minutes);
 }
 /**
  * 时间戳格式化(yyyy-MM-dd)
@@ -232,7 +275,7 @@ function getOther(userid, open) {
         //几个参数需要注意一下
         type: "get",//方法类型
         dataType: "json",//预期服务器返回的数据类型
-        url: APP_PATH + "/api/rest/nanshengbbs/v3.0/user/getOther/" + userid ,
+        url: APP_PATH + apiUrl + "/user/getOther/" + userid ,
         success: function (data) {
             // 状态码
             var code = data.code;
@@ -334,4 +377,78 @@ function toDecimal(x) {
         s += '0';
     }
     return s;
+}
+
+// 配置editormd
+function configEditormd() {
+    const myEditor = editormd("my-editormd", {
+        width: "82%",
+        height: 800,
+        syncScrolling: "single",
+        // 可折叠
+        codeFold: true,
+        // 开启 HTML 标签解析，为了安全性，默认不开启
+        htmlDecode : "style,script,iframe|on*",
+        // 你的lib目录的路径
+        path: APP_PATH + "/static/editor.md-master/lib/",
+
+        /*上传图片相关配置如下*/
+        imageUpload: true,
+        imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+        imageUploadURL: APP_PATH + apiUrl + "/article/uploadPicture",
+
+        onload: function () {
+            // 引入插件 执行监听方法
+            editormd.loadPlugin(APP_PATH + "/static/editor.md-master/plugins/image-handle-paste/image-handle-paste", function () {
+                myEditor.imagePaste();
+            });
+        },
+
+        //这个配置，方便post提交表单
+        saveHTMLToTextarea: true,
+
+        //emoji表情，默认关闭
+        emoji: true,
+        taskList: true,
+        // Using [TOCM]
+        tocm: true,
+        // 开启科学公式TeX语言支持，默认关闭
+        tex: true,
+
+        //开启流程图支持，默认关闭
+        flowChart: true,
+        //开启时序/序列图支持，默认关闭
+        sequenceDiagram: true,
+
+        //设置弹出层对话框不锁屏，全局通用，默认为true
+        dialogLockScreen: false,
+        //设置弹出层对话框显示透明遮罩层，全局通用，默认为true
+        dialogShowMask: false,
+        //设置弹出层对话框不可拖动，全局通用，默认为true
+        dialogDraggable: false,
+        //设置透明遮罩层的透明度，全局通用，默认值为0.1
+        dialogMaskOpacity: 0.4,
+        //设置透明遮罩层的背景颜色，全局通用，默认为#fff
+        dialogMaskBgColor: "#000",
+
+        onchange: function onchangeContent() {
+            if (this.htmlTextarea[0].defaultValue != "") {
+                $("#issue-submit").removeAttr("disabled");
+            } else {
+                layer.tips('文章内容不能为空!', '#my-editormd', {
+                    tips: [1, '#ff6620'] //还可配置颜色
+                });
+                $("#issue-submit").attr("disabled", "disabled");
+            }
+        }
+    });
+
+    //editor.md期望得到一个json格式的上传后的返回值，格式是这样的：
+    /*
+    {
+        success : 0 | 1,           // 0 表示上传失败，1 表示上传成功（注意：0/1一定要是数字不能是字符）
+        message : "提示的信息，上传成功或上传失败及错误信息等。",
+        url     : "图片地址"        // 上传成功时才返回
+    }
+    */
 }

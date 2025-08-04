@@ -12,11 +12,9 @@
     <%
         pageContext.setAttribute("APP_PATH", request.getContextPath());
     %>
+    <link rel="stylesheet" href="${APP_PATH}/static/layui/css/layui.css"/>
     <link href="${APP_PATH}/static/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="${APP_PATH}/static/css/css.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="${APP_PATH}/static/editor.md-master/css/editormd.min.css"/>
-    <link rel="stylesheet" href="${APP_PATH}/static/editor.md-master/css/editormd.preview.min.css"/>
 </head>
 <body>
 <%-- 方便ajax获取APP_PATH --%>
@@ -32,7 +30,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-11 nsbbs_head">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed"
@@ -42,7 +40,7 @@
                             class="icon-bar"></span> <span class="icon-bar"></span> <span
                             class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="${APP_PATH}/index.jsp">
+                    <a class="navbar-brand nsbbs_head_logo" href="${APP_PATH}/index.jsp">
                         <img class="img_logo" alt="Brand" src="${APP_PATH}/static/img/logo-lanse.png">
                     </a>
                 </div>
@@ -65,10 +63,13 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="chat" style="cursor: pointer;">
-                            <a href="http://chat.nanshengbbs.top/" target="_blank">闲聊</a>
+                            <a href="http://chat.nansin.top/" target="_blank">闲聊</a>
                         </li>
                         <li>
                             <a href="${APP_PATH}/admin/index.jsp" target="_blank">管理端</a>
+                        </li>
+                        <li>
+                            <a href="${APP_PATH}/posted.jsp">写文章</a>
                         </li>
 
                         <!----------------------------------- 未登录时显示 ----------------------------------->
@@ -78,10 +79,6 @@
                         <!----------------------------------- 未登录时显示-end ----------------------------------->
 
                         <!----------------------------------- 已登录时显示 ----------------------------------->
-                        <li class="head_login" style="display:none;">
-                            <a href="${APP_PATH}/posted.jsp">写文章</a>
-                        </li>
-                        <!-- 已登录 -->
                         <li class="dropdown head_login col-md-2" style="display:none;">
                             <img data-toggle="dropdown" class="head_userPhoto" src="${APP_PATH}/static/img/head.png" alt="头像">
                             <ul class="dropdown-menu">
@@ -128,30 +125,6 @@
                             </ul>
                         </li>
                         <!----------------------------------- 已登录时显示-end ----------------------------------->
-                        <li>
-                            <a href="javascript:void(0)" class="version-popover-options" data-container="body"
-                               data-toggle="popover" data-placement="right" data-trigger="hover" data-delay='{"show": "0", "hide": "1500" }'
-                               title="<b>版本说明</b>"
-                               data-content='<div style="line-height:30px;">
-                                                <b class="text-primary">南生论坛v2.8.2</b>
-                                                <p><small class="text-warning">图片/视频文件压缩并上七牛云，优化系统，提升访问效率 - <a href="http://www.nanshengbbs.top/article.jsp?fid=20200604232448-f3a5d3d45d054d12ab3adb34103fb420" target="_blank">查看详情</a></small></p>
-                                                <b class="text-primary">南生论坛v2.8.1</b>
-                                                <p><small class="text-warning">主要对前后端代码和数据库表进行了全面重构，新增了闲聊 - <a href="http://www.nanshengbbs.top/article.jsp?fid=20200501225212-02c54864c9864f85a583630c6e687fde" target="_blank">查看详情</a></small></p>
-                                                <b class="text-primary">南生论坛v2.6</b>
-                                                <p><small class="text-warning">支持Markdown、新增分享功能、新增文章详情页面、首页文章显示简约化 - <a href="http://www.nanshengbbs.top/article.jsp?fid=200" target="_blank">查看详情</a></small></p>
-                                                <b class="text-primary">南生论坛v2.0</b>
-                                                <p><small class="text-warning">整体异步实现、新增统计饼图、优化人机交互、实现分页、新增相册功能、新增月周日访问记录 - <a href="http://www.nanshengbbs.top/article.jsp?fid=137" target="_blank">查看详情</a></small></p>
-                                                <b class="text-primary">南生论坛v1.0</b>
-                                                <p><small class="text-warning">登录【<a href="http://www.nanshengbbs.top" target="_brank">用户系统</a>】可以：发帖、修改帖子、删除帖子、评论、删除评论、修改个人信息、关注、收藏
-                                                    <br>
-                                                    登录【<a href="http://www.nanshengbbs.top/admin" target="_brank">管理系统</a>】可以：管理用户、管理帖子、管理板块、访问记录</small></p>
-                                            </div>'>
-                                <small style="color: rgba(0,0,0,0.4);">v2.8.2</small>
-                            </a>
-                            <a href="javascript:void(0)" class="version-popover-options-photo" style="display: none;">
-                                <small style="color: rgba(0,0,0,0.4);">v2.8.2</small>
-                            </a>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -159,12 +132,10 @@
     </div>
 </nav>
 
-<script src="${APP_PATH}/static/js/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="${APP_PATH}/static/bootstrap/js/bootstrap.js"></script>
-<script src="${APP_PATH }/static/js/layer/layer.js"></script>
-<script src="${APP_PATH}/static/editor.md-master/lib/marked.min.js"></script>
-<script src="${APP_PATH}/static/editor.md-master/lib/prettify.min.js"></script>
-<script src="${APP_PATH}/static/editor.md-master/editormd.min.js"></script>
+<script src="${APP_PATH }/static/layer/layer.js"></script>
+<script src="${APP_PATH }/static/layui/layui.js"></script>
 
 <script src="${APP_PATH }/static/js/phones_pc.js"></script>
 <script src="${APP_PATH}/static/js/share.js"></script>

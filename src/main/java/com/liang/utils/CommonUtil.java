@@ -1,10 +1,14 @@
 package com.liang.utils;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,13 +20,14 @@ import java.util.regex.Pattern;
 public class CommonUtil {
     /**
      * 获取项目名称
+     *
      * @param request
      * @return
      */
-    public static String projectName(HttpServletRequest request){
-        String projectName;	//项目名称
+    public static String projectName(HttpServletRequest request) {
+        String projectName;    //项目名称
         projectName = request.getSession().getServletContext().getRealPath("/");
-        projectName = projectName.substring(0, projectName.length()-1);
+        projectName = projectName.substring(0, projectName.length() - 1);
         if (projectName.indexOf("/") == -1) {//在非linux系统下
             projectName = projectName.substring(projectName.lastIndexOf("\\"), projectName.length());
         } else {//在linux系统下
@@ -35,7 +40,8 @@ public class CommonUtil {
 
     /**
      * 把本地文件上传到封装的文件位置
-     * @param file 源文件
+     *
+     * @param file     源文件
      * @param filePath 文件（图片）路径
      * @return 生成新的文件名字
      */
@@ -59,10 +65,11 @@ public class CommonUtil {
 
     /**
      * 去除字符串里的中文
+     *
      * @param str
      * @return
      */
-    public static String getRemoveChinese(String str){
+    public static String getRemoveChinese(String str) {
         // 中文正则
         String REGEX_CHINESE = "[\u4e00-\u9fa5]";
         // 去除中文
@@ -73,15 +80,37 @@ public class CommonUtil {
 
     /**
      * 获取文件后缀名
+     *
      * @param filename
      * @return
      */
-    public static String getFileSuffix(String filename){
+    public static String getFileSuffix(String filename) {
         int pos = filename.lastIndexOf(".");
-        if(pos == -1){
+        if (pos == -1) {
             return null;
         }
-        return filename.substring(pos+1);
+        return filename.substring(pos + 1);
+    }
+
+    /**
+     * 字符串转list（实体）
+     * @param data
+     * @return
+     */
+    public static <T> List<T> stringToList(String data, Class<T> t) {
+        Gson gson = new Gson();
+        Type type = TypeToken.getParameterized(List.class, t).getType();
+        return gson.fromJson(data, type);
+    }
+
+    /**
+     * 字符串转实体
+     * @param data
+     * @return
+     */
+    public static <T> T stringToBean(String data, Class<T> t) {
+        Gson gson = new Gson();
+        return gson.fromJson(data, t);
     }
 
 }

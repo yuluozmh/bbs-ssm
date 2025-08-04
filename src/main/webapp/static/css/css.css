@@ -1,5 +1,15 @@
+html {
+    margin: 0;/*清除默认样式*/
+    padding: 0;
+    height: 100%;
+}
 body {
-    padding-top: 60px;
+    position: relative;
+    margin: 0 auto;
+    height: auto !important;
+    min-height: 100%;
+    /*padding-top: 88px;*/
+    padding-top: 58px;
     background-color: #f6f6f6;
 }
 .img_logo{
@@ -19,29 +29,61 @@ li.dropdown.head_login {
     height: 50px;
 }
 
-/*.myself_img{*/
-/*    position: relative;*/
-/*    left: 20px;*/
-/*}*/
-/*.myself_text{*/
-/*    position: relative;*/
-/*    left: -40px;*/
-/*    top: 0px*/
-/*}*/
+/* 闪烁 */
+@-webkit-keyframes twinkling{
+    0%{
+        color: #ff9600;
+    }
+    50%{
+        color: #08a8d8;
+    }
+    100%{
+        color: #ff9600;
+    }
+}
+.nsbbs_head > a {
+    -webkit-animation: twinkling 3s infinite ease-in-out;
+}
+.nsbbs_head {
+    position:relative;
+    left: 4%;
+}
+
+/* 移动的光条 */
+/*.nsbbs_head_logo:before {
+    content: "";
+    position: absolute;
+    width: 46px;
+    height: 15px;
+    background-color: rgba(255,255,255,.5);
+    transform: rotate(-45deg);
+    animation: nsbbs_head_logo 1s cubic-bezier(0.68, 0.5, 1, 1) 1s infinite;
+}
+@keyframes nsbbs_head_logo
+{
+    from {left:0;}
+    to {left:200px;}
+}
+@-webkit-keyframes nsbbs_head_logo
+{
+    from {left:0;}
+    to {left:200px;}
+}*/
+
 .bottom_left{
     position:relative;
-    left: 8%;
+    left: 4%;
     /* width: 60%; */
     background-color: #ffffff;
     border-radius: 2px;
 }
-.bottom_left_phones{ 
+.bottom_left_phones{
     background-color: #ffffff;
     border-radius: 2px;
 }
 .bottom_right{
     position:relative;
-    left: 9%;
+    left: 5%;
     /* width: 24%; */
     background-color: #ffffff;
     border-radius: 2px;
@@ -74,9 +116,23 @@ li.dropdown.head_login {
     height: 70%;
 }
 
+.attention_r{
+    position:relative;
+    top:5px;
+    color: #5bc0de;
+    font-size: 20px;
+}
+
+.collect_r{
+    position:relative;
+    top:6px;
+    color: red;
+    font-size: 20px;
+}
+
 .collect_start{
 	position:relative;
-	top:-2px; 
+	top:-2px;
 	color: #c0c0c0;
 	font-size: 20px;
 }
@@ -86,7 +142,7 @@ li.dropdown.head_login {
 
 .collect_end{
 	position:relative;
-	top:-2px; 
+	top:-2px;
 	color: red;
 	font-size: 20px;
 }
@@ -94,6 +150,12 @@ li.dropdown.head_login {
 	color: #c0c0c0;
 }
 
+.enjoy_r{
+    position:relative;
+    top:6px;
+    color: #00aef3;
+    font-size: 20px;
+}
 
 .enjoy_start{
     position:relative;
@@ -129,11 +191,6 @@ a:hover{
     color: #164c90;
 }
 
-div{
-    /*遇到div边界自动换行*/
-    word-wrap: break-word;
-}
-
 /*下面连着的4个作用是：去掉html里超链接下的横线。*/
 a:link {
     text-decoration: none;
@@ -155,15 +212,104 @@ a:active {
     color: #848484;
 }
 
-/* 版本说明 */
-.popover.right {
-    margin-left: 12px;
+/* 毒鸡汤 */
+#pcs_content {
+    padding: 13% 0 5% 0;
+    font-size: 30px;
+    color: #212529;
+    line-height: 1.5;
 }
-.popover {
-    border-radius: 2px;
-    border: 1px solid #00000012;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.11);
+.pcs_button {
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    outline: none;
+    border: none;
+    border-radius: 20px;
+    margin: 0 10px;
+    cursor: pointer;
+    background: #15acda;
+    color: #fff;
 }
-.popover-title {
-    background-color: #fff;
+.pcs_button:hover {
+    background: #1cbdef;
+}
+
+/* 页脚（由html+body+nansheng_footer的样式配合形成） */
+#nansheng_footer {
+    position: absolute;
+    height: 50px;
+    padding-top: 16px;
+    width: 100%;
+    bottom: 0;
+    display: none;
+    background-color: #e7e7e7;
+    z-index: 1999;
+}
+#nansheng_footer a:hover {
+    color: #000000;
+}
+
+/* 修改浏览器自带的滚动条样式 */
+::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.25rem;
+    background-image: linear-gradient(#ffffff 100%, #ffffff 100%);
+}
+::-webkit-scrollbar-track {
+    border-radius: 0;
+}
+::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(#3798e8 100%, #3798e8 100%);
+    transition: all .2s;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(95, 95, 95, 0.7);
+}
+
+/* 徽标样式更改(项目出售和有偿服务) */
+.paid-layui-badge {
+    height: 16px;
+    line-height: 16px;
+    padding: 0 3px;
+}
+
+/* 文章-板块 */
+.article_cat {
+    position: absolute;
+    z-index: 9;
+    background: #15acda;
+    cursor: pointer;
+}
+.article_cat > a {
+    color: #fff;
+    line-height: 28px;
+    padding: 0 10px;
+}
+
+/* 关于本站-图片 */
+.about_nsbbs_img:after{
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 130px;
+    top: 0;
+    left: 0;
+    box-shadow: 0 -25px 35px 10px #ffffff inset;
+}
+
+hr {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+/* 覆盖 <link rel="stylesheet" href="${APP_PATH}/static/layui/css/layui.css"/> 对应的样式 */
+li {
+    list-style: unset;
+}
+
+/* 覆盖 <link rel="stylesheet" href="${APP_PATH}/static/editor.md-master/css/editormd.preview.min.css"/> 对应的样式 */
+.markdown-body ol, .markdown-body ul {
+    padding-left: 1em;
 }

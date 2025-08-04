@@ -17,8 +17,9 @@
 	<jsp:include page="/login/login.jsp"></jsp:include>
 	<!-- 我的主页-基本信息设置 -->
 	<jsp:include page="/head/setup.jsp"></jsp:include>
-
 	<!-- 他人主页-主体内容 -->
 	<jsp:include page="/content/otherHome.jsp"></jsp:include>
+	<!-- 首页-页脚 -->
+	<jsp:include page="/head/footer.jsp"></jsp:include>
 </body>
 </html>

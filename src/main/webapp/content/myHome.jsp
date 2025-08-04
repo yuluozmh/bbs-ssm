@@ -382,7 +382,7 @@
 										<!-- 视频 -->
 										<video id="collect_article_video" controls="controls" style="position: relative; width: 100%; height: 100%;border-radius: 3px;display: none"></video>
 										<!-- 图片 -->
-										<img id="collect_article_img" style="position: relative; width: 100%; height: 100%;border-radius: 3px;display: none"/>
+										<img id="collect_article_img" style="position: relative; width: 100%; height: 100%; display: none"/>
 									</div>
 									<div class="col-md-2">
 										<!-- 时间 -->

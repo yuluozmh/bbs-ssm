@@ -4,7 +4,7 @@ function articleDel(fid) {
         //几个参数需要注意一下
         type: "delete",//方法类型
         dataType: "json",//预期服务器返回的数据类型
-        url: APP_PATH + "/api/rest/nanshengbbs/v3.0/article/deleteArticle/"+fid ,
+        url: APP_PATH + apiUrl + "/article/deleteArticle/"+fid ,
         success: function (data) {
             // 状态码
             var code = data.code;
@@ -33,8 +33,11 @@ function getHotArticle(hotArticles) {
     var hotArticle_all = "";
     for (var i = 0; i < hotArticles.length; i++) {
         var hotArticle = hotArticles[i];
+        $("#hotArticle_img").show();
+        $("#hotArticle_img").attr("src", hotArticle.photo);
         $("#hotArticle_all_a").attr("onclick", "skipArticle('" + hotArticle.fid + "')");
         $("#hotArticle_all_a").html(hotArticle.titles);
+        $("#hotArticle_pv").html(hotArticle.pv);
 
         hotArticle_all = hotArticle_all + $("#hotArticle_all_hide").html();
     }

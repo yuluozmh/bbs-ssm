@@ -14,14 +14,16 @@ public class DateUtil {
 
     /**
      * 获取现在时间，按“yyyyMMddHHmmss”格式化
+     *
      * @return
      */
-    public static String getNowDate(){
+    public static String getNowDate() {
         return yearTmeFormat.format(new Date());
     }
 
     /**
      * 获取当天的开始时间
+     *
      * @return
      */
     public static Date getDayBegin() {
@@ -35,9 +37,10 @@ public class DateUtil {
 
     /**
      * 获取当前周次
+     *
      * @return
      */
-    public static int getWeekOfYear(){
+    public static int getWeekOfYear() {
         Date date = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setFirstDayOfWeek(Calendar.MONDAY);//设置周一为一周的第一天
@@ -47,6 +50,7 @@ public class DateUtil {
 
     /**
      * 获取当天的结束时间
+     *
      * @return
      */
     public static Date getDayEnd() {
@@ -59,6 +63,7 @@ public class DateUtil {
 
     /**
      * 获取昨天的开始时间
+     *
      * @return
      */
     public static Date getBeginDayOfYesterday() {
@@ -70,6 +75,7 @@ public class DateUtil {
 
     /**
      * 获取昨天的结束时间
+     *
      * @return
      */
     public static Date getEndDayOfYesterDay() {
@@ -81,6 +87,7 @@ public class DateUtil {
 
     /**
      * 获取明天的开始时间
+     *
      * @return
      */
     public static Date getBeginDayOfTomorrow() {
@@ -93,6 +100,7 @@ public class DateUtil {
 
     /**
      * 获取明天的结束时间
+     *
      * @return
      */
     public static Date getEndDayOfTomorrow() {
@@ -104,6 +112,7 @@ public class DateUtil {
 
     /**
      * 获取本周的开始时间
+     *
      * @return
      */
     public static Date getBeginDayOfWeek() {
@@ -120,9 +129,10 @@ public class DateUtil {
 
     /**
      * 获取本周的结束时间
+     *
      * @return
      */
-    public static Date getEndDayOfWeek(){
+    public static Date getEndDayOfWeek() {
         Calendar cal = Calendar.getInstance();
         cal.setTime(getBeginDayOfWeek());
         cal.add(Calendar.DAY_OF_WEEK, 6);
@@ -132,6 +142,7 @@ public class DateUtil {
 
     /**
      * 获取本月的开始时间
+     *
      * @return
      */
     public static Date getBeginDayOfMonth() {
@@ -142,6 +153,7 @@ public class DateUtil {
 
     /**
      * 获取本月的结束时间
+     *
      * @return
      */
     public static Date getEndDayOfMonth() {
@@ -154,6 +166,7 @@ public class DateUtil {
 
     /**
      * 获取本年的开始时间
+     *
      * @return
      */
     public static Date getBeginDayOfYear() {
@@ -168,6 +181,7 @@ public class DateUtil {
 
     /**
      * 获取本年的结束时间
+     *
      * @return
      */
     public static Date getEndDayOfYear() {
@@ -180,32 +194,35 @@ public class DateUtil {
 
     /**
      * 获取某个日期的开始时间
+     *
      * @param d
      * @return
      */
     public static Timestamp getDayStartTime(Date d) {
         Calendar calendar = Calendar.getInstance();
-        if(null != d) calendar.setTime(d);
-        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),    calendar.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
+        if (null != d) calendar.setTime(d);
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         return new Timestamp(calendar.getTimeInMillis());
     }
 
     /**
      * 获取某个日期的结束时间
+     *
      * @param d
      * @return
      */
     public static Timestamp getDayEndTime(Date d) {
         Calendar calendar = Calendar.getInstance();
-        if(null != d) calendar.setTime(d);
-        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),    calendar.get(Calendar.DAY_OF_MONTH), 23, 59, 59);
+        if (null != d) calendar.setTime(d);
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), 23, 59, 59);
         calendar.set(Calendar.MILLISECOND, 999);
         return new Timestamp(calendar.getTimeInMillis());
     }
 
     /**
      * 获取今年是哪一年
+     *
      * @return
      */
     public static Integer getNowYear() {
@@ -217,6 +234,7 @@ public class DateUtil {
 
     /**
      * 获取本月是哪一月
+     *
      * @return
      */
     public static int getNowMonth() {
@@ -228,6 +246,7 @@ public class DateUtil {
 
     /**
      * 两个日期相减得到的天数
+     *
      * @param beginDate
      * @param endDate
      * @return
@@ -244,6 +263,7 @@ public class DateUtil {
 
     /**
      * 两个日期相减得到的毫秒数
+     *
      * @param beginDate
      * @param endDate
      * @return
@@ -256,6 +276,7 @@ public class DateUtil {
 
     /**
      * 获取两个日期中的最大日期
+     *
      * @param beginDate
      * @param endDate
      * @return
@@ -275,6 +296,7 @@ public class DateUtil {
 
     /**
      * 获取两个日期中的最小日期
+     *
      * @param beginDate
      * @param endDate
      * @return
@@ -294,11 +316,12 @@ public class DateUtil {
 
     /**
      * 返回某月该季度的第一个月
+     *
      * @param date
      * @return
      */
     public static Date getFirstSeasonDate(Date date) {
-        final int[] SEASON = { 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4 };
+        final int[] SEASON = {1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4};
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         int sean = SEASON[cal.get(Calendar.MONTH)];
@@ -308,6 +331,7 @@ public class DateUtil {
 
     /**
      * 返回某个日期下几天的日期
+     *
      * @param date
      * @param i
      * @return
@@ -321,6 +345,7 @@ public class DateUtil {
 
     /**
      * 返回某个日期前几天的日期
+     *
      * @param date
      * @param i
      * @return
@@ -334,6 +359,7 @@ public class DateUtil {
 
     /**
      * 获取某年某月到某年某月按天的切片日期集合（间隔天数的日期集合）
+     *
      * @param beginYear
      * @param beginMonth
      * @param endYear
@@ -365,6 +391,7 @@ public class DateUtil {
 
     /**
      * 获取某年某月按天切片日期集合（某个月间隔多少天的日期集合）
+     *
      * @param beginYear
      * @param beginMonth
      * @param k

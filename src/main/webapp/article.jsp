@@ -11,7 +11,6 @@
     <link href="${APP_PATH }/static/img/favicon.ico" rel='icon' type='image/x-icon'/>
 </head>
 <body>
-    
 <!-- 首页-头部 -->
 <jsp:include page="/head/head.jsp"></jsp:include>
 <!-- 首页-主体内容 -->
@@ -20,5 +19,7 @@
 <jsp:include page="/login/login.jsp"></jsp:include>
 <!-- 首页-基本信息设置 -->
 <jsp:include page="/head/setup.jsp"></jsp:include>
+<!-- 首页-页脚 -->
+<jsp:include page="/head/footer.jsp"></jsp:include>
 </body>
 </html>

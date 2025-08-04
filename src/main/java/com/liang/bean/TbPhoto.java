@@ -1,77 +1,34 @@
 package com.liang.bean;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
 import java.util.Date;
 
+/**
+ * @author maliang
+ * @create 2019-05-25 21:12
+ */
+@Data
+@ApiModel(value = "照片实体类", description = "照片信息描述类")
 public class TbPhoto {
-    // 照片id
+    @ApiModelProperty("value = 照片编号")
     private String xid;
-    // 相册id
+    @ApiModelProperty("value = 相册编号")
     private String fid;
-    // 照片上传者
+    @ApiModelProperty("value = 用户编号")
     private String userid;
-    // 照片名
+    @ApiModelProperty("value = 照片")
     private String photo;
-    // 照片上传时间
+    @ApiModelProperty("value = 照片上传时间")
     private Date createTime;
 
     public TbPhoto() {
-        super();
     }
 
     public TbPhoto(String fid, String userid) {
-        super();
         this.fid = fid;
         this.userid = userid;
-    }
-
-    public String getXid() {
-        return xid;
-    }
-
-    public void setXid(String xid) {
-        this.xid = xid;
-    }
-
-    public String getFid() {
-        return fid;
-    }
-
-    public void setFid(String fid) {
-        this.fid = fid;
-    }
-
-    public String getUserid() {
-        return userid;
-    }
-
-    public void setUserid(String userid) {
-        this.userid = userid;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    @Override
-    public String toString() {
-        return "TbPhoto{" +
-                "xid='" + xid + '\'' +
-                ", fid='" + fid + '\'' +
-                ", userid='" + userid + '\'' +
-                ", photo='" + photo + '\'' +
-                ", createTime=" + createTime +
-                '}';
     }
 }

@@ -37,8 +37,8 @@ function getArticlesAll(data) {
         $("#listArticle_username").html(article.name);
 
         /*--------------------------------------------------- 关注 ---------------------------------------------------*/
-        //用户登录后才显示关注按钮 && 如果是登录用户本人，则不显示关注按钮
-        if (userid != "" && fuserid != userid) {
+        // 如果是登录用户本人，则不显示关注按钮
+        if (fuserid != userid) {
             var gid = article.gid;
             $(".form_attentionDel").attr("class", "form_attentionDel_" + fuserid + " del_" + fid);
             $(".form_attentionAdd").attr("class", "form_attentionAdd_" + fuserid + " add_" + fid);
@@ -109,69 +109,16 @@ function getArticlesAll(data) {
         // 评论数
         $("#listArticle_sum").html(article.commentCount + " 条评论");
         $("#listArticle_sum").attr("onclick", "skipArticle('" + fid + "')");
-
+        // 浏览量
+        $("#article_pv").html(article.pv);
         /*--------------------------------------------------- 收藏 ---------------------------------------------------*/
-        // 用户登录后才显示心形收藏 && 如果不是登录用户本人所发文章，则显示心形收藏
-        if (userid != "" && fuserid != userid) {
-            // 收藏表信息
-            var sid = article.sid;
-
-            $(".form_collectDel").attr("class", "form_collectDel_" + fid);
-            $(".form_collectAdd").attr("class", "form_collectAdd_" + fid);
-
-            // 判断该文章是否被收藏
-            if (sid != null) {   // 已收藏
-                // "取消收藏"
-                $("#form_collectDel_btn").attr("onclick", "collectDel('" + fid + "')");
-                // "收藏"
-                $("#form_collectAdd_btn").attr("onclick", "collectAdd('" + fid + "')");
-                // 显示“取消收藏”
-                $(".form_collectDel_" + fid).show();
-            } else {    // 未收藏
-                // "取消收藏"
-                $("#form_collectDel_btn").attr("onclick", "collectDel('" + fid + "')");
-                // "收藏"
-                $("#form_collectAdd_btn").attr("onclick", "collectAdd('" + fid + "')");
-                // 显示“收藏”
-                $(".form_collectAdd_" + fid).show();
-            }
-        }
-        // 用户未登录才显示文字收藏
-        if (userid == "") {
-            $("#collect_userid_null").html("登录收藏");
-        }
+        // 收藏赋值
+        setCollect(article, fid);
         /*--------------------------------------------------- 收藏-end ---------------------------------------------------*/
 
         /*--------------------------------------------------- 点赞 ---------------------------------------------------*/
-        // 用户登录后才显示手形点赞 && 如果不是登录用户本人所发文章，则显示心形点赞
-        if (userid != "" && fuserid != userid) {
-            // 点赞表信息
-            var eid = article.eid;
-
-            $(".form_enjoyDel").attr("class", "form_enjoyDel_" + fid);
-            $(".form_enjoyAdd").attr("class", "form_enjoyAdd_" + fid);
-
-            // 判断该文章是否被点赞
-            if (eid != null) {    // 已点赞
-                // "取消点赞"
-                $("#form_enjoyDel_btn").attr("onclick", "enjoyDel('" + fid + "')");
-                // "点赞"
-                $("#form_enjoyAdd_btn").attr("onclick", "enjoyAdd('" + fid + "')");
-                // 显示“取消点赞”
-                $(".form_enjoyDel_" + fid).show();
-            } else {    // 未点赞
-                // "取消点赞"
-                $("#form_enjoyDel_btn").attr("onclick", "enjoyDel('" + fid + "')");
-                // "点赞"
-                $("#form_enjoyAdd_btn").attr("onclick", "enjoyAdd('" + fid + "')");
-                // 显示“点赞”
-                $(".form_enjoyAdd_" + fid).show();
-            }
-        }
-        // 用户未登录才显示文字点赞
-        if (userid == "") {
-            $("#enjoy_userid_null").html("登录点赞");
-        }
+        // 点赞赋值
+        setEnjoy(article, fid);
         /*--------------------------------------------------- 点赞-end ---------------------------------------------------*/
 
         // 拼接所有的标签数据

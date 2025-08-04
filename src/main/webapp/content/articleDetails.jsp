@@ -12,12 +12,8 @@
     <div class="row show_article">
         <div class="col-md-12 show_article_go">
             <div class="row">
-                <div class="col-xs-7 col-md-9" style="position: relative; padding-top: 10px;">
-                    <small>热门内容，来自：
-                        <small><a href="#" id="listArticle_bname"></a></small>
-                    </small>
-                </div>
-                <div class="col-xs-5 col-md-3" style="position: relative; padding-top: 10px;">
+                <div class="col-xs-7 col-md-9"></div>
+                <div class="col-xs-5 col-md-3 text-center" style="padding-top: 5px;">
                     <!-- 时间 -->
                     <small id="listArticle_time"></small>
                 </div>
@@ -37,7 +33,7 @@
                         </h5>
                     </a>
                 </div>
-                <div class="col-xs-4 col-md-3">
+                <div class="col-xs-4 col-md-3 text-center">
                     <!-- 关注按钮 -->
                     <div>
                         <!-- 已关注 -->
@@ -62,19 +58,20 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <h4>
+                    <h3>
                         <!-- 标题 -->
                         <b id="listArticle_title"></b>
-                    </h4>
+                    </h3>
                 </div>
                 <!-- 文章配图 -->
                 <div class="col-md-12" id="listArticle_photo">
+                    <span class="article_cat"><a id="listArticle_bname"></a></span>
                     <!-- 视频 -->
                     <video id="listArticle_video" class="img_content" controls="controls" style="display: none"></video>
                     <!-- 图片 -->
-                    <img id="listArticle_img" class="img_content" controls="controls" style="display: none"/>
+                    <img id="listArticle_img" class="img_content" controls="controls" style="display: none;"/>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12" style="padding-top: 20px;">
                     <div id="artice-doc-content">
                         <!-- 文章内容 -->
                         <textarea id="listArticle_fcontent" style="display:none;"></textarea>
@@ -83,12 +80,12 @@
             </div>
             <br>
             <div class="row" style="position: relative;top: -10px;">
-                <div class="col-xs-12 col-md-7">
-                    <div class="col-xs-3 col-md-3">
+                <div class="col-xs-12 col-md-10">
+                    <div class="col-xs-2 col-md-2">
                         <!-- 评论数 -->
                         <small id="listArticle2_sum"></small>
                     </div>
-                    <div class="col-xs-3 col-md-3">
+                    <div class="col-xs-2 col-md-2">
                         <!-- 收藏按钮 -->
                         <div>
                             <!-- 已收藏 -->
@@ -96,17 +93,19 @@
                                 <button id="form_collectDel_btn" type="button" style="border: none;background-color: #ffffff;">
                                     <samp title="取消收藏" class="glyphicon glyphicon-heart collect_end"></samp>
                                 </button>
+                                <span style="position: relative; top: -6px; color: #c0c0c0;"></span>
                             </form>
                             <!-- 未收藏 -->
                             <form method="post" class="form_collectAdd" style="display: none">
                                 <button id="form_collectAdd_btn" type="button" style="border: none;background-color: #ffffff;">
                                     <samp title="收藏该文章" class="glyphicon glyphicon-heart collect_start"></samp>
                                 </button>
+                                <span style="position: relative; top: -6px; color: #c0c0c0;"></span>
                             </form>
                         </div>
                         <small id="collect_userid_null"></small>
                     </div>
-                    <div class="col-xs-3 col-md-3">
+                    <div class="col-xs-2 col-md-2">
                         <!-- 点赞按钮 -->
                         <div>
                             <!-- 已点赞 -->
@@ -114,21 +113,28 @@
                                 <button id="form_enjoyDel_btn" type="button" style="border: none;background-color: #ffffff;">
                                     <samp title="取消点赞" class="glyphicon glyphicon-thumbs-up enjoy_end"></samp>
                                 </button>
+                                <span style="position: relative; top: -6px; color: #c0c0c0;"></span>
                             </form>
                             <!-- 未点赞 -->
                             <form method="post" class="form_enjoyAdd" style="display: none">
                                 <button id="form_enjoyAdd_btn" type="button" style="border: none;background-color: #ffffff;">
                                     <samp title="点赞该文章" class="glyphicon glyphicon-thumbs-up enjoy_start"></samp>
                                 </button>
+                                <span style="position: relative; top: -6px; color: #c0c0c0;"></span>
                             </form>
                         </div>
                         <small id="enjoy_userid_null"></small>
                     </div>
-                    <div class="col-xs-3 col-md-3">
+                    <div class="col-xs-2 col-md-2">
                         <!-- 分享 -->
                         <div title="分享到QQ好友">
-                            <img id="share" src="${APP_PATH}/static/img/share/QQ.png" style="cursor:pointer;">
+                            <img id="share" src="${APP_PATH}/static/img/share/qq.png" style="cursor:pointer;">
                         </div>
+                    </div>
+                    <div class="col-xs-3 col-md-3" style="color: #c0c0c0;">
+                        <img src="${APP_PATH}/static/img/share/eye.png" style="position: relative; top: -1px;">
+                        <!-- 文章浏览量 -->
+                        <span id="article_pv"></span>
                     </div>
                 </div>
             </div>
@@ -171,7 +177,7 @@
                         <div class="row" style="position: relative; top: -18px;">
                             <div class="col-md-11 col-xs-12 col-md-offset-1">
                                 <!-- 评论内容 -->
-                                <p id="comment_pcontent"></p>
+                                <p id="comment_pcontent" style="text-indent: 50px;"></p>
                             </div>
                         </div>
                         <div class="row" style="position: relative; top: -20px;">

@@ -2,210 +2,279 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.liang.dao.ArticleMapper">
     <resultMap id="BaseResultMap" type="com.liang.bean.Article">
-    <id column="fid" jdbcType="VARCHAR" property="fid" />
-    <result column="titles" jdbcType="VARCHAR" property="titles" />
-    <result column="fcontent" jdbcType="VARCHAR" property="fcontent" />
-    <result column="photo" jdbcType="VARCHAR" property="photo" />
-    <result column="bid" jdbcType="VARCHAR" property="bid" />
-    <result column="userid" jdbcType="VARCHAR" property="userid" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <id column="fid" jdbcType="VARCHAR" property="fid"/>
+        <result column="titles" jdbcType="VARCHAR" property="titles"/>
+        <result column="fcontent" jdbcType="VARCHAR" property="fcontent"/>
+        <result column="photo" jdbcType="VARCHAR" property="photo"/>
+        <result column="bid" jdbcType="VARCHAR" property="bid"/>
+        <result column="userid" jdbcType="VARCHAR" property="userid"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="pv" jdbcType="INTEGER" property="pv"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
     <sql id="Base_Column_List">
-    fid, titles, fcontent, photo, bid, userid, status, create_time, update_time
+        fid, titles, fcontent, photo, bid, userid, status, pv, create_time, update_time
     </sql>
 
     <!-- 向数据库插入文章信息 -->
     <insert id="insert" parameterType="com.liang.bean.Article">
-    insert into article
-    values (#{fid,jdbcType=VARCHAR},
-            #{titles,jdbcType=VARCHAR},
-            #{fcontent,jdbcType=VARCHAR},
-            #{photo,jdbcType=VARCHAR},
-            #{bid,jdbcType=VARCHAR},
-            #{userid,jdbcType=VARCHAR},
-            #{status,jdbcType=INTEGER},
-            now(),
-            now())
+        insert into article
+        values (#{fid,jdbcType=VARCHAR},
+                #{titles,jdbcType=VARCHAR},
+                #{fcontent,jdbcType=VARCHAR},
+                #{photo,jdbcType=VARCHAR},
+                #{bid,jdbcType=VARCHAR},
+                #{userid,jdbcType=VARCHAR},
+                #{status,jdbcType=INTEGER},
+                #{pv,jdbcType=INTEGER},
+                now(),
+                now())
     </insert>
 
     <!-- 按fid删除文章信息 -->
     <delete id="deleteByKey" parameterType="java.lang.String">
-    delete from article
-    where fid = #{fid,jdbcType=VARCHAR}
+        delete
+        from article
+        where fid = #{fid,jdbcType=VARCHAR}
     </delete>
 
     <!-- 删除userid对应的文章信息 -->
     <delete id="deleteByUserid" parameterType="java.lang.String">
-    delete from article
-    where userid = #{userid,jdbcType=VARCHAR}
+        delete
+        from article
+        where userid = #{userid,jdbcType=VARCHAR}
     </delete>
 
     <!-- 修改文章表 -->
     <update id="updateByKey" parameterType="com.liang.bean.Article">
-    update article
-    set titles = #{titles,jdbcType=VARCHAR},
-        fcontent = #{fcontent,jdbcType=VARCHAR},
-        photo = #{photo,jdbcType=VARCHAR},
-        bid = #{bid,jdbcType=VARCHAR},
-        update_time = now()
-    where fid = #{fid,jdbcType=VARCHAR}
+        update article
+        set titles      = #{titles,jdbcType=VARCHAR},
+            fcontent    = #{fcontent,jdbcType=VARCHAR},
+            photo       = #{photo,jdbcType=VARCHAR},
+            bid         = #{bid,jdbcType=VARCHAR},
+            update_time = now()
+        where fid = #{fid,jdbcType=VARCHAR}
     </update>
 
     <!-- 更改文章审核状态 -->
     <update id="updateStatusByKey" parameterType="com.liang.bean.Article">
-    update article
-    set status = #{status,jdbcType=INTEGER}
-    where fid = #{fid,jdbcType=VARCHAR}
+        update article
+        set status = #{status,jdbcType=INTEGER}
+        where fid = #{fid,jdbcType=VARCHAR}
+    </update>
+
+    <!-- 记录（+1）文章访问量 -->
+    <update id="updateArticlePV" parameterType="java.lang.String">
+        update article
+        set pv = pv + 1
+        where fid = #{fid,jdbcType=VARCHAR}
     </update>
 
     <!-- 查询“通过审核”的文章信息（分页） -->
     <select id="selectPassArticleImplPaging" parameterType="java.util.Map" resultType="com.liang.bean.impl.ArticleImpl">
-    select a.fid, a.titles, a.fcontent, a.photo, a.bid, a.userid, a.status, a.create_time, a.update_time, u.name,
-           v.photo as userPhoto, p.bname, att.gid, c.sid, e.eid, count(com.pid) commentCount
-    from article a left join user u on a.userid = u.userid
-             left join via v on u.userid = v.userid
-             left join plate p on a.bid = p.bid
-             left join attention att on a.userid = att.beuserid and att.userid = #{userid,jdbcType=VARCHAR}
-             left join collect c on a.fid = c.fid and c.userid = #{userid,jdbcType=VARCHAR}
-             left join enjoy e on a.fid = e.fid and e.userid = #{userid,jdbcType=VARCHAR}
-             left join comment com on a.fid = com.fid
-    where a.status = 1
-    <if test="bid">
-        and a.bid = #{bid,jdbcType=VARCHAR}
-    </if>
-    group by a.fid
-    order by a.create_time desc
-    limit #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+        select a.fid,
+               a.titles,
+               a.fcontent,
+               a.photo,
+               a.bid,
+               a.userid,
+               a.status,
+               a.pv,
+               a.create_time,
+               a.update_time,
+               u.name,
+               v.photo as     userPhoto,
+               p.bname,
+               att.gid,
+               c.sid,
+               e.eid,
+               count(com.pid) commentCount
+        from article a
+                 left join user u on a.userid = u.userid
+                 left join via v on u.userid = v.userid
+                 left join plate p on a.bid = p.bid
+                 left join attention att on a.userid = att.beuserid and att.userid = #{userid,jdbcType=VARCHAR}
+                 left join collect c on a.fid = c.fid and c.userid = #{userid,jdbcType=VARCHAR}
+                 left join enjoy e on a.fid = e.fid and e.userid = #{userid,jdbcType=VARCHAR}
+                 left join comment com on a.fid = com.fid
+        where a.status = 1
+        <if test="bid">
+            and a.bid = #{bid,jdbcType=VARCHAR}
+        </if>
+        group by a.fid, a.create_time
+        order by a.create_time desc
+        limit #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
     </select>
 
     <!-- 查询文章信息（分页） -->
     <select id="selectArticleImplPaging" parameterType="java.util.Map" resultType="com.liang.bean.impl.ArticleImpl">
-    select a.fid, a.titles, a.fcontent, a.photo, a.bid, a.userid, a.status, a.create_time, a.update_time, u.name, p.bname
-    from article a left join user u on a.userid = u.userid
-         left join plate p on a.bid = p.bid
-    order by a.create_time desc
-    limit #{offset},#{limit}
-    </select>
-
-    <!-- 按文章板块查询出文章（并获取每张文章所对应评论的条数）-通过审核的 -->
-    <select id="selectByArticleBid" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select
-      a.fid, a.titles, a.fcontent, a.photo, p.bname, a.create_time, a.userid, u.name as username, a.status,count(c.pid) sum,v.photo userphoto
-    from article a left join comment c on a.fid=c.fid left join via v on a.userid=v.userid left join plate p on a.bid=p.bid left join user u on a.userid=u.userid
-    where a.bid = #{bid,jdbcType=VARCHAR} and a.status = 1
-    group by a.fid
-    order by a.create_time desc
+        select a.fid,
+               a.titles,
+               a.fcontent,
+               a.photo,
+               a.bid,
+               a.userid,
+               a.status,
+               a.pv,
+               a.create_time,
+               a.update_time,
+               u.name,
+               p.bname
+        from article a
+                 left join user u on a.userid = u.userid
+                 left join plate p on a.bid = p.bid
+        order by a.create_time desc
+        limit #{offset},#{limit}
     </select>
 
     <!-- 按userid查询“通过审核”文章信息 -->
     <select id="selectPassArticleByUserid" parameterType="com.liang.bean.Article" resultMap="BaseResultMap">
-    select *
-    from article
-    where status = 1 and userid = #{userid,jdbcType=VARCHAR}
-    order by create_time desc
+        select *
+        from article
+        where status = 1
+          and userid = #{userid,jdbcType=VARCHAR}
+        order by create_time desc
     </select>
 
     <!-- 按userid查询文章信息 -->
     <select id="selectArticleByUserid" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select *
-    from article
-    where userid = #{userid,jdbcType=VARCHAR}
-    order by create_time desc
+        select *
+        from article
+        where userid = #{userid,jdbcType=VARCHAR}
+        order by create_time desc
     </select>
 
     <!-- 按fid查询文章信息 -->
     <select id="selectArticleByKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select *
-    from article
-    where fid = #{fid,jdbcType=VARCHAR}
+        select *
+        from article
+        where fid = #{fid,jdbcType=VARCHAR}
     </select>
 
     <!-- 按fid和userid查询文章信息 -->
     <select id="selectArticleImplByKeyU" parameterType="java.util.Map" resultType="com.liang.bean.impl.ArticleImpl">
-    select a.fid, a.titles, a.fcontent, a.photo, a.bid, a.userid, a.status, a.create_time, a.update_time, u.name,
-           v.photo as userPhoto, p.bname, att.gid, c.sid, e.eid, count(com.pid) commentCount
-    from article a left join user u on a.userid = u.userid
-        left join via v on u.userid = v.userid
-        left join plate p on a.bid = p.bid
-        left join attention att on a.userid = att.beuserid and att.userid = #{userid,jdbcType=VARCHAR}
-        left join collect c on a.fid = c.fid and c.userid = #{userid,jdbcType=VARCHAR}
-        left join enjoy e on a.fid = e.fid and e.userid = #{userid,jdbcType=VARCHAR}
-        left join comment com on a.fid = com.fid
-    where a.fid = #{fid,jdbcType=VARCHAR}
+        select a.fid,
+               a.titles,
+               a.fcontent,
+               a.photo,
+               a.bid,
+               a.userid,
+               a.status,
+               a.pv,
+               a.create_time,
+               a.update_time,
+               u.name,
+               v.photo as     userPhoto,
+               p.bname,
+               att.gid,
+               c.sid,
+               e.eid,
+               count(com.pid) commentCount
+        from article a
+                 left join user u on a.userid = u.userid
+                 left join via v on u.userid = v.userid
+                 left join plate p on a.bid = p.bid
+                 left join attention att on a.userid = att.beuserid and att.userid = #{userid,jdbcType=VARCHAR}
+                 left join collect c on a.fid = c.fid and c.userid = #{userid,jdbcType=VARCHAR}
+                 left join enjoy e on a.fid = e.fid and e.userid = #{userid,jdbcType=VARCHAR}
+                 left join comment com on a.fid = com.fid
+        where a.fid = #{fid,jdbcType=VARCHAR}
     </select>
 
     <!-- 查询热门文章 -->
-    <select id="selectHotArticle" parameterType="java.util.Map" resultMap="BaseResultMap">
-    select
-      fid, titles
-    from article
-    where fid in
-          (select temp.fid
-           from (select count(1) as total, fid
-                from comment
-                where fid in (select fid from article where status=1)
-                group by fid
-                order by total desc
-                limit 10) as temp)
+    <select id="selectHotArticle" resultMap="BaseResultMap">
+        select fid,
+               titles,
+               pv,
+               photo
+        from article
+        where status = 1
+        order by pv desc
+        limit 10
     </select>
 
     <!-- 查询userid评论过的文章信息 -->
     <select id="selectArticleImplByUserid" parameterType="java.util.Map" resultType="com.liang.bean.impl.ArticleImpl">
-    select a.fid, a.titles, a.fcontent, a.photo, a.bid, a.userid, a.status, a.create_time, a.update_time, u.name
-    from (
-        select * from article
-        where fid in (select fid from comment where userid = #{userid, jdbcType=VARCHAR})
-    ) a left join user u on a.userid = u.userid
-    <if test="status">
-        where a.status = 1
-    </if>
-    order by a.create_time
+        select a.fid,
+               a.titles,
+               a.fcontent,
+               a.photo,
+               a.bid,
+               a.userid,
+               a.status,
+               a.create_time,
+               a.update_time,
+               u.name
+        from (
+                 select *
+                 from article
+                 where fid in (select fid from comment where userid = #{userid, jdbcType=VARCHAR})
+             ) a
+                 left join user u on a.userid = u.userid
+        <if test="status">
+            where a.status = 1
+        </if>
+        order by a.create_time
     </select>
 
     <!-- 查询userid收藏的文章信息 -->
-    <select id="selectCollectArticleImplByUserid" parameterType="java.util.Map" resultType="com.liang.bean.impl.ArticleImpl">
-    select a.fid, a.titles, a.fcontent, a.photo, a.bid, a.userid, a.status, a.create_time, a.update_time, c.create_time as collectTime
-    from (
-        select * from article
-        where fid in (select fid from collect where userid = #{userid, jdbcType=VARCHAR})
-    ) a left join collect c on a.fid = c.fid and c.userid = #{userid, jdbcType=VARCHAR}
-    <if test="status">
-        where a.status = 1
-    </if>
-    order by collectTime
+    <select id="selectCollectArticleImplByUserid" parameterType="java.util.Map"
+            resultType="com.liang.bean.impl.ArticleImpl">
+        select a.fid,
+               a.titles,
+               a.fcontent,
+               a.photo,
+               a.bid,
+               a.userid,
+               a.status,
+               a.create_time,
+               a.update_time,
+               c.create_time as collectTime
+        from (
+                 select *
+                 from article
+                 where fid in (select fid from collect where userid = #{userid, jdbcType=VARCHAR})
+             ) a
+                 left join collect c on a.fid = c.fid and c.userid = #{userid, jdbcType=VARCHAR}
+        <if test="status">
+            where a.status = 1
+        </if>
+        order by collectTime desc
     </select>
 
     <!-- 总文章数 -->
     <select id="selectCount" resultType="java.lang.Integer">
-    select count(1) from article
+        select count(1)
+        from article
     </select>
 
     <!-- 某板块下文章总数 -->
     <select id="selectPassArticleCountByBid" parameterType="java.lang.String" resultType="java.lang.Integer">
-        select count(1) from article
+        select count(1)
+        from article
         where bid = #{bid,jdbcType=VARCHAR}
-            and status = 1
+          and status = 1
     </select>
 
     <!-- 查询userid的总文章数 -->
     <select id="selectArticleCountByUserid" parameterType="java.util.Map" resultType="java.lang.Integer">
-    select count(1)
-    from article
-    where userid = #{userid,jdbcType=VARCHAR}
-    <if test="status">
-        and status = 1
-    </if>
+        select count(1)
+        from article
+        where userid = #{userid,jdbcType=VARCHAR}
+        <if test="status">
+            and status = 1
+        </if>
     </select>
 
     <!-- 查询userid评论过的文章总数 -->
     <select id="selectArticleImplCountByUserid" parameterType="java.util.Map" resultType="java.lang.Integer">
-    select count(1) from article
-    where fid in (select fid from comment where userid = #{userid, jdbcType=VARCHAR})
-    <if test="status">
-        and status = 1
-    </if>
+        select count(1)
+        from article
+        where fid in (select fid from comment where userid = #{userid, jdbcType=VARCHAR})
+        <if test="status">
+            and status = 1
+        </if>
     </select>
 
     <!-- 获取某用户的收藏总数 -->
@@ -213,11 +282,12 @@
         select count(1)
         from article
         where fid in (select fid
-        from collect
-        where userid = #{userid,jdbcType=VARCHAR}
+                      from collect
+                      where userid = #{userid,jdbcType=VARCHAR}
         <if test="status">
             and status = 1
-        </if>)
+        </if>
+        )
     </select>
 
 </mapper>

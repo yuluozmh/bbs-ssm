@@ -10,8 +10,6 @@
 		pageContext.setAttribute("APP_PATH", request.getContextPath());
 	%>
 	<link href="${APP_PATH }/static/img/admin/favicon-admin.ico" rel='icon' type='image/x-icon'/>
-
-	<link href="${APP_PATH }/static/bootstrap/css/bootstrap.css" rel="stylesheet" />
 	<link href="${APP_PATH }/static/css/base.css" rel="stylesheet" />
 </head>
 <body>
@@ -25,5 +23,7 @@
 <jsp:include page="/admin/plate.jsp"></jsp:include>
 <!-- 管理员页面-修改文章 -->
 <jsp:include page="/admin/plateEdit.jsp"></jsp:include>
+<!-- 管理员页面-新增轮播图 -->
+<jsp:include page="/admin/slider.jsp"></jsp:include>
 </body>
 </html>

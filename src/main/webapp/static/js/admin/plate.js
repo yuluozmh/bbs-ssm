@@ -28,7 +28,7 @@ function plateAdd(){
     }
     //调ajax
     $.ajax({
-        url: APP_PATH + "/api/rest/nanshengbbs/v3.0/plate/setPlate",
+        url: APP_PATH + apiUrl + "/plate/setPlate",
         data: $('#form_addPlate').serialize(),
         type: "POST",
         dataType: "json",
@@ -40,7 +40,7 @@ function plateAdd(){
             if (code == 200) {
                 $('#plate_Add').modal('hide');     // 关闭模态框
                 $.ajax({
-                    url: APP_PATH + "/api/rest/nanshengbbs/v3.0/plate/getPlate",
+                    url: APP_PATH + apiUrl + "/plate/getPlate",
                     type: "get",
                     dataType: "json",
                     success: function(data){
@@ -121,7 +121,7 @@ function plateUpdate(bid){
     }
     //调ajax
     $.ajax({
-        url: APP_PATH + "/api/rest/nanshengbbs/v3.0/plate/updatePlate",
+        url: APP_PATH + apiUrl + "/plate/updatePlate",
         data: data,
         type: "put",
         dataType: "json",
@@ -133,7 +133,7 @@ function plateUpdate(bid){
             if (code == 200) {
                 $('#plate_Update').modal('hide');     // 关闭模态框
                 $.ajax({
-                    url: APP_PATH + "/api/rest/nanshengbbs/v3.0/plate/getPlate",
+                    url: APP_PATH + apiUrl + "/plate/getPlate",
                     type: "get",
                     dataType: "json",
                     success: function(data){
@@ -187,7 +187,7 @@ function b_del(bid) {
 function plateDel(bid) {
     //调ajax
     $.ajax({
-        url: APP_PATH + "/api/rest/nanshengbbs/v3.0/plate/deletePlate/"+bid,
+        url: APP_PATH + apiUrl + "/plate/deletePlate/"+bid,
         data: $('#form_delPlate').serialize(),
         type: "delete",
         dataType: "json",
@@ -197,9 +197,8 @@ function plateDel(bid) {
             // 提示信息
             var msg = data.msg;
             if (code == 200) {
-                $('#plate_Add').modal('hide');     // 关闭模态框
                 $.ajax({
-                    url: APP_PATH + "/api/rest/nanshengbbs/v3.0/plate/getPlate",
+                    url: APP_PATH + apiUrl + "/plate/getPlate",
                     type: "get",
                     dataType: "json",
                     success: function(data){

@@ -1,4 +1,4 @@
-> 推荐：[我的另一个基于【SpringBoot+Vue】的论坛项目](https://github.com/maliangnansheng/bbs-springboot)
+> 推荐：[我的另一个基于【SpringBoot+Vue】的企业级项目](https://github.com/maliangnansheng/bbs-springboot)
 
 # Nan's BBS 南生论坛（SSM）
 
@@ -6,11 +6,7 @@
 [![](https://img.shields.io/badge/version-2.8.2-brightgreen.svg)](https://github.com/maliangnansheng/bbs-ssm)
 [![GitHub stars](https://img.shields.io/github/stars/maliangnansheng/bbs-ssm.svg?style=social&label=Stars)](https://github.com/maliangnansheng/bbs-ssm)
 [![GitHub forks](https://img.shields.io/github/forks/maliangnansheng/bbs-ssm.svg?style=social&label=Fork)](https://github.com/maliangnansheng/bbs-ssm)
-
-## 南生论坛V3.0.0（SpringBoot+Vue）上线了
-
-[南生论坛v3.0.0](https://bbs.nansin.top/ "南生论坛v3.0.0")
-欢迎大家使用......
+- 本项目完全开源！如果觉得不错麻烦帮忙点一次Star⭐️
 
 ## 关于项目
 
@@ -26,12 +22,6 @@
 管理系统：[https://ssm.nansin.top/admin](https://ssm.nansin.top/admin)    **↓↓↓**
 
 > 为了避免大家删除数据，暂时不给后台账号，望理解！
-
-## 获取SQL脚本or疑问解答
-
-> 需要获取SQL脚本or有疑问的童鞋加作者QQ：`924818949` => **有偿获取SQL**（你的捐赠将用于项目后期的维护和更新...）
->
-> 无法接受有偿的童鞋，去完全开源的项目：[我的另一个基于【SpringBoot+Vue】的论坛项目](https://github.com/maliangnansheng/bbs-springboot)
 
 ## 推荐理由
 

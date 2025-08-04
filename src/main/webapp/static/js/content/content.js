@@ -4,12 +4,10 @@ $(function () {
     $("#content_left").css("background-color","transparent");
     /*----------------------------------------- 获取文章信息 -----------------------------------------*/
     $.ajax({
-        url: APP_PATH + "/api/rest/nanshengbbs/v3.0/article/getArticle",
+        url: APP_PATH + apiUrl + "/article/getArticle",
         type: "get",
         dataType: "json",
         success: function (data) {
-            // 隐藏加载loading
-            $("#content_loading").hide();
             // 恢复背景颜色为白色
             $("#content_left").css("background-color","#ffffff");
             // 恢复右边板块的显示
@@ -55,9 +53,39 @@ $(function () {
     });
     /*----------------------------------------- 获取文章信息-end -----------------------------------------*/
 
+    /*----------------------------------------- 获取关于本站信息 -----------------------------------------*/
+    $.ajax({
+        url: APP_PATH + apiUrl + "/article/getTotalCount",
+        type: "get",
+        dataType: "json",
+        success: function (data) {
+            // 状态码
+            var code = data.code;
+            // 提示信息
+            var msg = data.msg;
+            if (code == 200) {
+                var data = data.data;
+                // 文章
+                $("#about_nsbbs_article").html(data.articleCount);
+                // 评论
+                $("#about_nsbbs_comment").html(data.commentCount);
+                // 访客
+                $("#about_nsbbs_visit").html(data.visitCount);
+
+                $("#about_nsbbs").show();
+            } else if (code == 500) {
+                layer.msg(msg, {icon: 5});
+            }
+        },
+        error: function () {
+            layer.msg("出错！", {icon: 5});
+        }
+    });
+    /*----------------------------------------- 获取关于本站信息-end -----------------------------------------*/
+
     /*----------------------------------------- 获取所有板块信息 -----------------------------------------*/
     $.ajax({
-        url: APP_PATH + "/api/rest/nanshengbbs/v3.0/plate/getPlate",
+        url: APP_PATH + apiUrl + "/plate/getPlate",
         type: "get",
         dataType: "json",
         success: function (data) {
@@ -80,7 +108,7 @@ $(function () {
 
     /*----------------------------------------- 获取热门文章信息 -----------------------------------------*/
     $.ajax({
-        url: APP_PATH + "/api/rest/nanshengbbs/v3.0/article/getHotArticle",
+        url: APP_PATH + apiUrl + "/article/getHotArticle",
         type: "get",
         dataType: "json",
         success: function (data) {
@@ -103,7 +131,7 @@ $(function () {
 
     /*----------------------------------------- 获取最新评论信息 -----------------------------------------*/
     $.ajax({
-        url: APP_PATH + "/api/rest/nanshengbbs/v3.0/comment/getNewComment",
+        url: APP_PATH + apiUrl + "/comment/getNewComment",
         type: "get",
         dataType: "json",
         success: function (data) {
@@ -126,7 +154,7 @@ $(function () {
 
     /*----------------------------------------- 获取访问统计信息 -----------------------------------------*/
     $.ajax({
-        url: APP_PATH + "/api/rest/nanshengbbs/v3.0/visit/getStatVisit",
+        url: APP_PATH + apiUrl + "/visit/getStatVisit",
         type: "get",
         dataType: "json",
         success: function (data) {
@@ -135,8 +163,10 @@ $(function () {
             // 提示信息
             var msg = data.msg;
             if (code == 200) {
-                // 显示扇形图
-                showCountrysProvinces(data.data);
+                // 显示扇形图 (echarts图表内的canvas宽度为0)
+                setTimeout(()=>{
+                    showCountrysProvinces(data.data);
+                },500)
             } else if (code == 500) {
                 layer.msg(msg, {icon: 5});
             }
@@ -149,7 +179,7 @@ $(function () {
 
     /*----------------------------------------- 记录访问信息 -----------------------------------------*/
     // $.ajax({
-    //     url: APP_PATH + "/api/rest/nanshengbbs/v3.0/visit/setVisit",
+    //     url: APP_PATH + apiUrl + "/visit/setVisit",
     //     type: "post",
     //     dataType: "json",
     //     success: function (data) {
@@ -166,17 +196,46 @@ $(function () {
     //     }
     // });
     /*----------------------------------------- 记录访问信息-end -----------------------------------------*/
+
+    /*----------------------------------------- 获取轮播图信息 -----------------------------------------*/
+    $.ajax({
+        url: APP_PATH + apiUrl + "/slider/getSlider",
+        type: "get",
+        dataType: "json",
+        success: function (data) {
+            // 状态码
+            var code = data.code;
+            // 提示信息
+            var msg = data.msg;
+            if (code === 200) {
+                console.log(1);
+                var slider_all = "";
+                var sliders = data.data;
+                for (var i=0; i<sliders.length; i++) {
+                    var slider = sliders[i];
+                    // 文字(文字url)
+                    $(".slider_text").html(slider.text).attr("href", slider.textUrl);
+                    // 轮播图url
+                    $(".slider_image").attr("src", slider.imageUrl);
+                    slider_all = slider_all + $("#slider_hide").html();
+                }
+                $("#slider_all").html(slider_all);
+                // 追加js（目的是为了先dom再jquery.jSlider.min.js）
+                $("#appendJS").attr("src", APP_PATH + '/static/slider/jquery.jSlider.min.js');
+            } else if (code === 500) {
+                layer.msg(msg, {icon: 5});
+            }
+        },
+        error: function () {
+            layer.msg("出错！", {icon: 5});
+        }
+    });
+    /*----------------------------------------- 获取轮播图信息-end -----------------------------------------*/
 });
 
 /*跳转到文章详情（新开一个tab）*/
 function skipArticle(fid) {
     var url = APP_PATH + '/article.jsp?fid=' + fid;
-    window.open(url,"_blank");
-}
-
-/*跳转到捐赠详细信息（新开一个tab）*/
-function skipDonate() {
-    var url = APP_PATH + '/donate.jsp';
     window.open(url,"_blank");
 }
 

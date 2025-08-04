@@ -1,71 +1,26 @@
 package com.liang.bean;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
 import java.util.Date;
 
+/**
+ * @author maliang
+ * @create 2019-05-25 21:12
+ */
+@Data
+@ApiModel(value = "相册实体类", description = "相册信息描述类")
 public class PhotoPro {
-    // 相册id
+    @ApiModelProperty("value = 相册编号")
     private String fid;
-    // 用户id
+    @ApiModelProperty("value = 用户编号")
     private String userid;
-    // 相册名
+    @ApiModelProperty("value = 相册名称")
     private String name;
-    // 相册创建时间
+    @ApiModelProperty("value = 相册创建时间")
     private Date createTime;
-    // 相册更新时间
+    @ApiModelProperty("value = 相册更新时间")
     private Date updateTime;
-
-    public PhotoPro() {
-        super();
-    }
-
-    public String getFid() {
-        return fid;
-    }
-
-    public void setFid(String fid) {
-        this.fid = fid;
-    }
-
-    public String getUserid() {
-        return userid;
-    }
-
-    public void setUserid(String userid) {
-        this.userid = userid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    @Override
-    public String toString() {
-        return "PhotoPro{" +
-                "fid='" + fid + '\'' +
-                ", userid='" + userid + '\'' +
-                ", name='" + name + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                '}';
-    }
 }

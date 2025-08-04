@@ -13,21 +13,26 @@
         pageContext.setAttribute("APP_PATH", request.getContextPath());
     %>
     <link href="${APP_PATH}/static/css/css.css" rel="stylesheet">
+    <link rel="stylesheet" href="${APP_PATH}/static/slider/jSlider.min.css">
 </head>
 <body>
 <!--主体（下）-->
 <div class="container">
-    <!--加载中...-->
-    <div id="content_loading">
-        <div class="text-center">
-            <br><br><br><br><br><br><br><br><br><br>
-            <img src="${APP_PATH}/static/img/loading.gif" alt="加载中...">
-        </div>
-    </div>
-
     <div class="row">
         <!--左边板块-->
         <div id="content_left">
+            <%-- 轮播图-模板 --%>
+            <div id="slider_hide" style="display: none;">
+                <div>
+                    <span class="article_cat">
+                        <a class="slider_text" target="_blank"></a>
+                    </span>
+                    <img class="slider_image">
+                </div>
+            </div>
+            <%-- 轮播图-实际数据 --%>
+            <div id="slider_all" class="jSlider" data-loop="true" style="width: 104%; left: -2%;"></div>
+            <div class="row" style="position: relative; background-color: #f6f6f6; height: 10px;"></div>
             <!--代码部分begin-->
             <div class="jq22">
                 <!-- 文章展示-模板 -->
@@ -48,6 +53,8 @@
     <br>
 </div>
 
+<script src="${APP_PATH }/static/js/echars/echarts.min.js"></script>
+
 <script src="${APP_PATH }/static/js/content/content.js"></script>
 <script src="${APP_PATH }/static/js/content/comment.js"></script>
 <script src="${APP_PATH }/static/js/content/attention.js"></script>
@@ -57,11 +64,10 @@
 <script src="${APP_PATH }/static/js/content/article.js"></script>
 <script src="${APP_PATH }/static/js/content/visit.js"></script>
 <script src="${APP_PATH }/static/js/content/common.js"></script>
-
+<script id="appendJS"></script>
 
 <script src="${APP_PATH }/static/js/phones_pc.js"></script>
 <script src="${APP_PATH }/static/js/load_more.js"></script>
-<script src="${APP_PATH }/static/js/echars/echarts.min.js"></script>
 
 </body>
 </html>

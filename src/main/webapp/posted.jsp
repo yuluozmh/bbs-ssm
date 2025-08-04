@@ -19,5 +19,7 @@
 	<jsp:include page="/head/setup.jsp"></jsp:include>
 	<!-- 首页-登录、注册 -->
 	<jsp:include page="/login/login.jsp"></jsp:include>
+	<!-- 首页-页脚 -->
+	<jsp:include page="/head/footer.jsp"></jsp:include>
 </body>
 </html>

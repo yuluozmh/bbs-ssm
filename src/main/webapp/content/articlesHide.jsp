@@ -11,12 +11,8 @@
     <div class="row show_article">
         <div class="col-md-12 show_article_go">
             <div class="row">
-                <div class="col-xs-7 col-md-9" style="position: relative; padding-top: 10px;">
-                    <small>热门内容，来自：
-                        <small><a href="#" id="listArticle_bname"></a></small>
-                    </small>
-                </div>
-                <div class="col-xs-5 col-md-3" style="position: relative; padding-top: 10px;">
+                <div class="col-xs-7 col-md-9"></div>
+                <div class="col-xs-5 col-md-3 text-center" style="padding-top: 5px;">
                     <!-- 时间 -->
                     <small id="listArticle_time"></small>
                 </div>
@@ -36,7 +32,7 @@
                         </h5>
                     </a>
                 </div>
-                <div class="col-xs-4 col-md-3">
+                <div class="col-xs-4 col-md-3 text-center">
                     <!-- 关注按钮 -->
                     <div>
                         <!-- 已关注 -->
@@ -58,6 +54,7 @@
                 <p>
                     <!-- 文章配图 -->
                     <div class="col-md-3" id="listArticle_photo" style="cursor:pointer;">
+                        <span class="article_cat"><a id="listArticle_bname"></a></span>
                         <!-- 视频 -->
                         <video id="listArticle_video" class="img_content" controls="controls" style="display: none"></video>
                         <!-- 图片 -->
@@ -79,12 +76,12 @@
             </div>
             <br>
             <div class="row" style="position: relative;top: -10px;">
-                <div class="col-xs-12 col-md-7">
-                    <div class="col-xs-4 col-md-4">
+                <div class="col-xs-12 col-md-8">
+                    <div class="col-xs-3 col-md-3">
                         <!-- 评论数 -->
                         <small style="cursor:pointer;" id="listArticle_sum"></small>
                     </div>
-                    <div class="col-xs-4 col-md-4">
+                    <div class="col-xs-3 col-md-3">
                         <!-- 收藏按钮 -->
                         <div>
                             <!-- 已收藏 -->
@@ -92,33 +89,42 @@
                                 <button id="form_collectDel_btn" type="button" style="border: none;background-color: #ffffff;">
                                     <samp title="取消收藏" class="glyphicon glyphicon-heart collect_end"></samp>
                                 </button>
+                                <span style="position: relative; top: -6px; color: #c0c0c0;"></span>
                             </form>
                             <!-- 未收藏 -->
                             <form method="post" class="form_collectAdd" style="display: none">
                                 <button id="form_collectAdd_btn" type="button" style="border: none;background-color: #ffffff;">
                                     <samp title="收藏该文章" class="glyphicon glyphicon-heart collect_start"></samp>
                                 </button>
+                                <span style="position: relative; top: -6px; color: #c0c0c0;"></span>
                             </form>
                         </div>
                         <small id="collect_userid_null"></small>
                     </div>
-                    <div class="col-xs-4 col-md-4">
+                    <div class="col-xs-3 col-md-3">
                         <!-- 点赞按钮 -->
                         <div>
                             <!-- 已点赞 -->
                             <form method="delete" class="form_enjoyDel" style="display: none">
-                                <button id="form_enjoyDel_btn" type="button" style="border: none;background-color: #ffffff;">
-                                    <samp title="取消点赞" class="glyphicon glyphicon-thumbs-up enjoy_end"></samp>
+                                <button id="form_enjoyDel_btn" type="button" style="border: none; background-color: #ffffff;">
+                                    <span title="取消点赞" class="glyphicon glyphicon-thumbs-up enjoy_end"></span>
                                 </button>
+                                <span style="position: relative; top: -6px; color: #c0c0c0;"></span>
                             </form>
                             <!-- 未点赞 -->
                             <form method="post" class="form_enjoyAdd" style="display: none">
-                                <button id="form_enjoyAdd_btn" type="button" style="border: none;background-color: #ffffff;">
-                                    <samp title="点赞该文章" class="glyphicon glyphicon-thumbs-up enjoy_start"></samp>
+                                <button id="form_enjoyAdd_btn" type="button" style="border: none; background-color: #ffffff;">
+                                    <span title="点赞该文章" class="glyphicon glyphicon-thumbs-up enjoy_start"></span>
                                 </button>
+                                <span style="position: relative; top: -6px; color: #c0c0c0;"></span>
                             </form>
                         </div>
                         <small id="enjoy_userid_null"></small>
+                    </div>
+                    <div class="col-xs-3 col-md-3" style="color: #c0c0c0;">
+                        <img src="${APP_PATH}/static/img/share/eye.png" style="position: relative; top: -1px;">
+                        <!-- 文章浏览量 -->
+                        <span id="article_pv"></span>
                     </div>
                 </div>
             </div>

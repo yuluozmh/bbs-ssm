@@ -18,7 +18,7 @@ function onkeyupAlbumNameUpadate() {
 /*修改相册*/
 function albumEditShow(fid) {
     $.ajax({
-        url: APP_PATH + "/api/rest/nanshengbbs/v3.0/photoPro/getPhotoProFid/" + fid,
+        url: APP_PATH + apiUrl + "/photoPro/getPhotoProFid/" + fid,
         type: "get",
         dataType: "json",
         success: function (data) {
@@ -64,7 +64,7 @@ function albumEdit(name) {
     }
 
     $.ajax({
-        url: APP_PATH + "/api/rest/nanshengbbs/v3.0/photoPro/updatePhotoPro",
+        url: APP_PATH + apiUrl + "/photoPro/updatePhotoPro",
         type: "put",
         dataType: "json",
         data: $('#form_albumEdit').serialize(),

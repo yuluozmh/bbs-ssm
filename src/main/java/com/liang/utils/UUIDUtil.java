@@ -14,10 +14,11 @@ public class UUIDUtil {
 
     /**
      * 构造uuid（当前时间+uuid）
+     *
      * @return
      */
-    public static String getRandomUUID(){
-        String uuid = format.format(new Date()) + "-" + UUID.randomUUID().toString().replace("-","");
+    public static String getRandomUUID() {
+        String uuid = format.format(new Date()) + "-" + UUID.randomUUID().toString().replace("-", "");
 
         return uuid;
     }

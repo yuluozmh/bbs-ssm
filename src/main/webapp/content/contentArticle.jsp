@@ -12,20 +12,17 @@
     <%
         pageContext.setAttribute("APP_PATH", request.getContextPath());
     %>
-
+    <link rel="stylesheet" href="${APP_PATH}/static/editor.md-master/css/editormd.preview.min.css"/>
     <link href="${APP_PATH}/static/css/css.css" rel="stylesheet">
+    <link href="${APP_PATH}/static/magnify/magnify.css" rel="stylesheet">
 </head>
 <body>
+<!-- Swiper -->
+<div class="swiper-container text-center" id="origin-img">
+    <div class="swiper-wrapper"></div>
+</div>
 <!--主体（下）-->
 <div class="container">
-    <!--加载中...-->
-    <div id="content_loading">
-        <div class="text-center">
-            <br><br><br><br><br><br><br><br><br><br>
-            <img src="${APP_PATH}/static/img/loading.gif" alt="加载中...">
-        </div>
-    </div>
-
     <div class="row">
         <!--左边板块-->
         <div id="content_left">
@@ -53,6 +50,16 @@
         <jsp:include page="contentRight.jsp"></jsp:include>
     </div>
 </div>
+<script src="${APP_PATH}/static/editor.md-master/lib/marked.min.js"></script>
+<script src="${APP_PATH}/static/editor.md-master/lib/prettify.min.js"></script>
+<script src="${APP_PATH}/static/editor.md-master/lib/raphael.min.js"></script>
+<script src="${APP_PATH}/static/editor.md-master/lib/underscore.min.js"></script>
+<script src="${APP_PATH}/static/editor.md-master/lib/sequence-diagram.min.js"></script>
+<script src="${APP_PATH}/static/editor.md-master/lib/flowchart.min.js"></script>
+<script src="${APP_PATH}/static/editor.md-master/lib/jquery.flowchart.min.js"></script>
+<script src="${APP_PATH}/static/editor.md-master/editormd.min.js"></script>
+
+<script src="${APP_PATH }/static/js/echars/echarts.min.js"></script>
 
 <script src="${APP_PATH }/static/js/delete.js"></script>
 <script src="${APP_PATH }/static/js/content/contentArticle.js"></script>
@@ -61,7 +68,7 @@
 <script src="${APP_PATH }/static/js/content/collect.js"></script>
 <script src="${APP_PATH }/static/js/content/enjoy.js"></script>
 <script src="${APP_PATH }/static/js/content/plate.js"></script>
-<%--<script src="${APP_PATH }/static/js/content/articleEdit.js"></script>--%>
+<script src="${APP_PATH }/static/js/content/user.js"></script>
 <script src="${APP_PATH }/static/js/content/visit.js"></script>
 <script src="${APP_PATH }/static/js/share.js"></script>
 <script src="${APP_PATH }/static/js/content/common.js"></script>
@@ -70,7 +77,8 @@
 
 <script src="${APP_PATH }/static/js/phones_pc.js"></script>
 <script src="${APP_PATH }/static/js/load_more.js"></script>
-<script src="${APP_PATH }/static/js/echars/echarts.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/js/swiper.min.js"></script>
+<script src="${APP_PATH }/static/magnify/magnify.js"></script>
 </body>
 </html>

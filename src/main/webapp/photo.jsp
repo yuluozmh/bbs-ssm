@@ -17,12 +17,13 @@
     <jsp:include page="/login/login.jsp"></jsp:include>
     <!-- 我的主页-基本信息设置 -->
     <jsp:include page="/head/setup.jsp"></jsp:include>
-
     <!-- 我的相册（照片）-主体内容 -->
     <jsp:include page="/photo/showPhoto.jsp"></jsp:include>
     <!-- 我的相册-编辑相册 -->
     <jsp:include page="/photo/albumEdit.jsp"></jsp:include>
     <!-- 我的相册-上传照片 -->
     <jsp:include page="/photo/photoAdd.jsp"></jsp:include>
+    <!-- 首页-页脚 -->
+    <jsp:include page="/head/footer.jsp"></jsp:include>
 </body>
 </html>

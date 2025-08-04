@@ -1,80 +1,67 @@
 package com.liang.service;
 
 import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.liang.bean.Collect;
-import com.liang.dao.CollectMapper;
 
-@Service
-public class CollectService {
+public interface CollectService {
+    /**
+     * 添加收藏
+     *
+     * @param collect
+     */
+    void setCollect(Collect collect);
 
-	@Autowired
-	CollectMapper collectMapper;
+    /**
+     * 删除收藏（按userid和fid）
+     *
+     * @param fid
+     * @param userid
+     */
+    void deleteCollectUseridAndFid(String fid, String userid);
 
-	/**
-	 * 添加收藏
-	 * @param collect
-	 */
-	public void setCollect(Collect collect) {
+    /**
+     * 按fid删除收藏信息
+     *
+     * @param fid
+     */
+    void deleteCollectFid(String fid);
 
-		collectMapper.insert(collect);
-	}
+    /**
+     * 删除该用户对应的收藏信息(按userid)
+     *
+     * @param userid
+     */
+    void deleteCollectUserid(String userid);
 
-	/**
-	 * 删除收藏（按userid和fid）
-	 * @param collect
-	 */
-	public void deleteCollectUseridAndFid(Collect collect) {
+    /**
+     * 删除收藏(按sid)
+     *
+     * @param sid
+     */
+    void deleteCollect(String sid);
 
-		collectMapper.deleteByUF(collect);
-	}
+    /**
+     * 查询收藏信息（无条件）
+     *
+     * @return
+     */
+    List<Collect> getCollect();
 
-	/**
-	 * 按fid删除收藏信息
-	 * @param fid
-	 */
-	public void deleteCollectFid(String fid) {
+    /**
+     * 按收藏者id和被收藏文章id进行查询
+     *
+     * @param fid
+     * @param userid
+     * @return
+     */
+    Collect getCollectFid(String fid, String userid);
 
-		collectMapper.deleteByFid(fid);
-	}
-
-	/**
-	 * 删除该用户对应的收藏信息(按userid)
-	 * @param userid
-	 */
-	public void deleteCollectUserid(String userid) {
-
-		collectMapper.deleteByUserid(userid);
-	}
-
-	/**
-	 * 删除收藏(按sid)
-	 * @param sid
-	 */
-	public void deleteCollect(String sid) {
-
-		collectMapper.deleteByKey(sid);
-	}
-
-	/**
-	 * 查询收藏信息（无条件）
-	 * @return
-	 */
-	public List<Collect> getCollect() {
-		
-		return collectMapper.selectCollect();
-	}
-
-	/**
-	 * 按收藏者id和被收藏文章id进行查询
-	 * @param collect
-	 * @return
-	 */
-    public Collect getCollectFid(Collect collect) {
-    	return collectMapper.selectCollectByUF(collect);
-    }
+    /**
+     * 获取某一文章的收藏数
+     *
+     * @param fid
+     * @return
+     */
+    int getCountByFid(String fid);
 }

@@ -10,12 +10,13 @@ import java.util.Map;
 public class EntityMapUtils {
     /**
      * 实体类转Map
+     *
      * @param object
      * @return
      */
     public static Map<String, Object> entityToMap(Object object) {
         Map<String, Object> map = new HashMap();
-        for (Field field : object.getClass().getDeclaredFields()){
+        for (Field field : object.getClass().getDeclaredFields()) {
             try {
                 boolean flag = field.isAccessible();
                 field.setAccessible(true);
@@ -31,20 +32,21 @@ public class EntityMapUtils {
 
     /**
      * Map转实体类
-     * @param map 需要初始化的数据，key字段必须与实体类的成员名字一样，否则赋值为空
-     * @param entity  需要转化成的实体类
+     *
+     * @param map    需要初始化的数据，key字段必须与实体类的成员名字一样，否则赋值为空
+     * @param entity 需要转化成的实体类
      * @return
      */
     public static <T> T mapToEntity(Map<String, Object> map, Class<T> entity) {
         T t = null;
         try {
             t = entity.newInstance();
-            for(Field field : entity.getDeclaredFields()) {
+            for (Field field : entity.getDeclaredFields()) {
                 if (map.containsKey(field.getName())) {
                     boolean flag = field.isAccessible();
                     field.setAccessible(true);
                     Object object = map.get(field.getName());
-                    if (object!= null && field.getType().isAssignableFrom(object.getClass())) {
+                    if (object != null && field.getType().isAssignableFrom(object.getClass())) {
                         field.set(t, object);
                     }
                     field.setAccessible(flag);
@@ -61,10 +63,11 @@ public class EntityMapUtils {
 
     /**
      * 合并多个map
+     *
      * @param maps
      * @return
      */
-    public static Map<String, Object> mergeMaps(Map<String, Object> ... maps) {
+    public static Map<String, Object> mergeMaps(Map<String, Object>... maps) {
         Class clazz = maps[0].getClass(); // 获取传入map的类型
         Map<String, Object> map = new HashMap<>();
         try {

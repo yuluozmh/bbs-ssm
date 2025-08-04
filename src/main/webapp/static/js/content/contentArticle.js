@@ -3,16 +3,14 @@ $(function () {
     var fid = getQueryString("fid");
 
     // 背景颜色设置为透明
-    $("#content_left").css("background-color","transparent");
+    $("#content_left").css("background-color", "transparent");
     $.ajax({
-        url: APP_PATH + "/api/rest/nanshengbbs/v3.0/article/getArticleFid/" + fid ,
+        url: APP_PATH + apiUrl + "/article/getArticleFid/" + fid,
         type: "get",
         dataType: "json",
         success: function (data) {
-            // 隐藏加载loadinglistArticle_bname
-            $("#content_loading").hide();
             // 恢复背景颜色为白色
-            $("#content_left").css("background-color","#ffffff");
+            $("#content_left").css("background-color", "#ffffff");
             // 恢复右边板块的显示
             $("#content_right").show();
 
@@ -51,8 +49,8 @@ $(function () {
                 $("#listArticle_username").html(article.name);
 
                 /*--------------------------------------------------- 关注and修改文章 ---------------------------------------------------*/
-                //用户登录后才显示关注按钮 && 如果是登录用户本人，则不显示关注按钮
-                if (userid != "" && fuserid != userid) {
+                // 如果是登录用户本人，则不显示关注按钮
+                if (fuserid != userid) {
                     // 关注表信息
                     var gid = article.gid;
 
@@ -87,7 +85,7 @@ $(function () {
                         // 显示“关注她”
                         $(".form_attentionAdd_" + fuserid).show();
                     }
-                } else if(userid != "" && fuserid == userid) {    // 用户登录且该文章是登录用户的，则显示修改按钮
+                } else if (userid != "" && fuserid == userid) {    // 用户登录且该文章是登录用户的，则显示修改按钮
                     // "修改文章"
                     $("#form_articleUpdate_btn").attr("onclick", "skipUpdateArticle('" + fid + "')");
                     // 显示“修改文章”
@@ -98,8 +96,9 @@ $(function () {
                 // 标题
                 $("#listArticle_title").html(article.titles);
 
-                // 内容
-                $("#listArticle_fcontent").html(article.fcontent);
+                // 内容 $("#id").html()会丢失部分数据，所以使用$("#id").val()
+                $("#listArticle_fcontent").val(article.fcontent);
+                // $("#listArticle_fcontent").html(article.fcontent);
 
                 // 文章配图
                 if (article.photo != "") { // 有“配图”
@@ -108,7 +107,7 @@ $(function () {
                         // 显示“视频”
                         $("#listArticle_video").show();
                     } else {
-                        $("#listArticle_img").attr("src", article.photo);
+                        $("#listArticle_img").css("cursor", "zoom-in").attr("onclick", 'magnify("' + article.photo + '")').attr("src", article.photo);
                         // 显示“图片”
                         $("#listArticle_img").show();
                     }
@@ -121,69 +120,16 @@ $(function () {
 
                 // 评论数
                 $("#listArticle2_sum").html(article.commentCount + " 条评论");
-
+                // 浏览量
+                $("#article_pv").html(article.pv + 1);
                 /*--------------------------------------------------- 收藏 ---------------------------------------------------*/
-                // 用户登录后才显示心形收藏 && 如果不是登录用户本人所发文章，则显示心形收藏
-                if (userid != "" && fuserid != userid) {
-                    // 收藏表信息
-                    var sid = article.sid;
-
-                    $(".form_collectDel").attr("class", "form_collectDel_" + fid);
-                    $(".form_collectAdd").attr("class", "form_collectAdd_" + fid);
-
-                    // 判断该文章是否被收藏
-                    if (sid != null) {   // 已收藏
-                        // "取消收藏"
-                        $("#form_collectDel_btn").attr("onclick", "collectDel('" + fid + "')");
-                        // "收藏"
-                        $("#form_collectAdd_btn").attr("onclick", "collectAdd('" + fid + "')");
-                        // 显示“取消收藏”
-                        $(".form_collectDel_" + fid).show();
-                    } else {    // 未收藏
-                        // "取消收藏"
-                        $("#form_collectDel_btn").attr("onclick", "collectDel('" + fid + "')");
-                        // "收藏"
-                        $("#form_collectAdd_btn").attr("onclick", "collectAdd('" + fid + "')");
-                        // 显示“收藏”
-                        $(".form_collectAdd_" + fid).show();
-                    }
-                }
-                // 用户未登录才显示文字收藏
-                if (userid == "") {
-                    $("#collect_userid_null").html("登录收藏");
-                }
+                // 收藏赋值
+                setCollect(article, fid);
                 /*--------------------------------------------------- 收藏-end ---------------------------------------------------*/
 
                 /*--------------------------------------------------- 点赞 ---------------------------------------------------*/
-                // 用户登录后才显示手形点赞 && 如果不是登录用户本人所发文章，则显示心形点赞
-                if (userid != "" && fuserid != userid) {
-                    // 点赞表信息
-                    var eid = article.eid;
-
-                    $(".form_enjoyDel").attr("class", "form_enjoyDel_" + fid);
-                    $(".form_enjoyAdd").attr("class", "form_enjoyAdd_" + fid);
-
-                    // 判断该文章是否被点赞
-                    if (eid != null) {    // 已点赞
-                        // "取消点赞"
-                        $("#form_enjoyDel_btn").attr("onclick", "enjoyDel('" + fid + "')");
-                        // "点赞"
-                        $("#form_enjoyAdd_btn").attr("onclick", "enjoyAdd('" + fid + "')");
-                        // 显示“取消点赞”
-                        $(".form_enjoyDel_" + fid).show();
-                    } else {    // 未点赞
-                        // "取消点赞"
-                        $("#form_enjoyDel_btn").attr("onclick", "enjoyDel('" + fid + "')");
-                        // "点赞"
-                        $("#form_enjoyAdd_btn").attr("onclick", "enjoyAdd('" + fid + "')");
-                        // 显示“点赞”
-                        $(".form_enjoyAdd_" + fid).show();
-                    }
-                }
-                // 用户未登录才显示文字点赞
-                if (userid == "") {
-                    $("#enjoy_userid_null").html("登录点赞");
-                }
+                // 点赞赋值
+                setEnjoy(article, fid);
                 /*--------------------------------------------------- 点赞-end ---------------------------------------------------*/
 
                 /*--------------------------------------------------- 分享 ---------------------------------------------------*/
@@ -192,7 +138,7 @@ $(function () {
                 var share_url = window.location.href;
                 // 访问地址是"localhost"不显示配图，可用127.0.0.1替代localhost看效果
                 var share_pics = "";
-                if (article.photo == ""){ //没有配图
+                if (article.photo == "") { //没有配图
                     share_pics = window.location.protocol + '//' + window.location.host + APP_PATH + '/static/img/beijing.jpg';
                 } else {
                     share_pics = article.photo;
@@ -210,26 +156,34 @@ $(function () {
                 }
                 // 评论展示
                 var comments = data.listComment;
-                if (comments != null){  // 有评论
+                if (comments != null) {  // 有评论
                     // 评论展示
                     getComment(comments, fuserid);
                 }
                 /*--------------------------------------------------- 评论-end ---------------------------------------------------*/
 
                 /*----------------- 把MD语法文档，转换为HTML语法 - js---------------------------*/
-                var testEditor;
                 $(function () {
-                    testEditor = editormd.markdownToHTML("artice-doc-content", {//注意：这里是上面DIV的id
-                        htmlDecode: "style,script,iframe",
+                    const testEditor = editormd.markdownToHTML("artice-doc-content", {//注意：这里是上面DIV的id
+                        //htmlDecode: true,       // 开启 HTML 标签解析，为了安全性，默认不开启
+                        htmlDecode: "style,script,iframe",  // you can filter tags decode
+                        //toc             : false,
+                        tocm: true,    // Using [TOCM]
+                        //tocContainer: "#custom-toc-container", // 自定义 ToC 容器层
+                        //gfm: false,
+                        //tocDropdown: true,
+                        // markdownSourceCode: true, // 是否保留 Markdown 源码，即是否删除保存源码的 Textarea 标签
                         emoji: true,
                         taskList: true,
-                        tex: true, // 默认不解析
-                        flowChart: true, // 默认不解析
-                        sequenceDiagram: true, // 默认不解析
-                        codeFold: true,
+                        tex: true,  // 默认不解析
+                        flowChart: true,  // 默认不解析
+                        sequenceDiagram: true,  // 默认不解析
                     });
                 });
                 /*--------------------------------- end ------------------------------------*/
+
+                // 关于作者
+                getAboutUser(fuserid);
             } else if (code == 500) {
                 layer.msg(msg, {icon: 5});
             }
@@ -239,8 +193,10 @@ $(function () {
             getHotArticle(data.listHotArticle);
             // 最新评论
             getNewComment(data.listNewComment);
-            // 显示扇形图
-            showCountrysProvinces(data);
+            // 显示扇形图 (echarts图表内的canvas宽度为0)
+            setTimeout(()=>{
+                showCountrysProvinces(data);
+            },500)
         },
         error: function () {
             layer.msg("出错！", {icon: 5});
@@ -252,13 +208,14 @@ $(function () {
 function getQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
     var r = window.location.search.substr(1).match(reg);
-    if (r != null) return unescape(r[2]); return null;
+    if (r != null) return unescape(r[2]);
+    return null;
 }
 
 /*跳转到文章详情（新开一个tab）*/
 function skipArticle(fid) {
     var url = APP_PATH + '/article.jsp?fid=' + fid;
-    window.open(url,"_blank");
+    window.open(url, "_blank");
 }
 
 /*跳转到修改文章（新开一个tab）*/
@@ -267,18 +224,13 @@ function skipUpdateArticle(fid) {
     window.location.href = url;
 }
 
-/*跳转到捐赠详细信息（新开一个tab）*/
-function skipDonate() {
-    var url = APP_PATH + '/donate.jsp';
-    window.open(url,"_blank");
-}
-
 /* 取消关注-鼠标移上去 */
 function onmouseoverAttentioned(userid) {
     $("." + userid).css("background-color", "#d43f3a");
     $("." + userid).css("color", "#ffffff");
     $("." + userid).html('<samp class="glyphicon glyphicon-minus-sign"></samp> 取消关注');
 }
+
 /* 取消关注-鼠标移出 */
 function onmouseoutAttentioned(userid) {
     $("." + userid).removeAttr("style");

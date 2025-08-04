@@ -6,7 +6,7 @@ function getPhoto(data, fid) {
     $("#showPhoto_name").html("【" + name + "】");
 
     $.ajax({
-        url: APP_PATH + "/tbPhotoController/getTbPhoto/" + fid,
+        url: APP_PATH + apiUrl + "/tbPhoto/getTbPhoto/" + fid,
         type: "get",
         dataType: "json",
         success: function (data) {

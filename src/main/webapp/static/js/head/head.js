@@ -9,6 +9,7 @@ $(function () {
         $(".head_login").show();
         getUserPhoto();
     }
+
 });
 
 /**
@@ -29,6 +30,3 @@ function getUserPhotoArg(UserPhotoFileName) {
     // 用户头像
     $(".head_userPhoto").attr("src", UserPhotoFileName);
 }
-
-/* 版本说明 */
-$(".version-popover-options").popover({html : true });

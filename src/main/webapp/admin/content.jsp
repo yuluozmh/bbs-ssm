@@ -16,7 +16,7 @@
 	<div class="row" style="margin-top: 70px">
 		<!--左边部分 -->
 		<%-- 非手机 --%>
-		<div class="nav-left col-md-2 no-padding admin_pc" id="nav-list-left" style="display: none; z-index: 1">
+		<div class="nav-left col-md-2 no-padding admin_pc" id="nav-list-left" style="display: none; z-index: 1;">
 			<div class="user-panel">
 				<img src="${APP_PATH }/static/img/admin/user.jpg" class="img-circle center-block" />
 			</div>
@@ -41,6 +41,11 @@
 					<li>
 						<a class="cut-bkgl" href="#">
 							<span class="glyphicon glyphicon-tag"></span> 板块管理
+						</a>
+					</li>
+					<li>
+						<a class="cut-lbtgl" href="#">
+							<span class="glyphicon glyphicon-retweet"></span> 轮播管理
 						</a>
 					</li>
 					<li>
@@ -72,6 +77,11 @@
 				<li>
 					<a class="cut-bkgl" href="#">
 						<span class="glyphicon glyphicon-tag"></span> 板块管理
+					</a>
+				</li>
+				<li>
+					<a class="cut-lbtgl" href="#">
+						<span class="glyphicon glyphicon-retweet"></span> 轮播管理
 					</a>
 				</li>
 				<li>
@@ -230,8 +240,9 @@
 								<th>年龄</th>
 								<th>性别</th>
 								<th>Email</th>
-								<th>住址</th>
-								<th>简介</th>
+								<th width="300px">住址</th>
+								<th width="300px">简介</th>
+								<th>文章数(全)</th>
 								<th>创建时间</th>
 								<th>更新时间</th>
 								<th>用户头像</th>
@@ -257,6 +268,10 @@
 								<td id="userFamily"></td>
 								<!-- 简介 -->
 								<td id="userIntro"></td>
+								<!-- 文章数 -->
+								<td>
+									<span id="userArticleSum" class="badge" style="background-color: #1ebbff;"></span>
+								</td>
 								<!-- 创建时间 -->
 								<td id="userCreateTime"></td>
 								<!-- 更新时间 -->
@@ -299,7 +314,10 @@
 							<th>序号</th>
 							<th>标题</th>
 							<th>发布者</th>
-							<th>所属板块</th>
+							<th>板块</th>
+							<th>收藏数</th>
+							<th>点赞数</th>
+							<th>浏览量</th>
 							<th>创建时间</th>
 							<th>更新时间</th>
 							<th>审核状态</th>
@@ -323,6 +341,18 @@
 							<td id="articleUsername"></td>
 							<!-- 板块 -->
 							<td id="articleBname"></td>
+							<!-- 收藏数 -->
+							<td>
+								<span id="articleCollect" class="badge" style="background-color: #00a65a;"></span>
+							</td>
+							<!-- 点赞数 -->
+							<td>
+								<span id="articleEnjoy" class="badge" style="background-color: #95d6ea;"></span>
+							</td>
+							<!-- 浏览量 -->
+							<td>
+								<span id="articlePV" class="badge" style="background-color: #1ebbff;"></span>
+							</td>
 							<!-- 创建时间 -->
 							<td id="articleCreateTime"></td>
 							<!-- 更新时间 -->
@@ -370,6 +400,7 @@
 						<tr>
 							<th>序号</th>
 							<th>板块名</th>
+							<th>文章数(全)</th>
 							<th>创建时间</th>
 							<th>更新时间</th>
 							<th class="text-center">操作</th>
@@ -382,6 +413,10 @@
 							<td id="plateNum"></td>
 							<!-- 版块名 -->
 							<td id="plateName"></td>
+							<!-- 文章数 -->
+							<td>
+								<span id="plateArticleSum" class="badge" style="background-color: #f39c12;"></span>
+							</td>
 							<!-- 创建时间 -->
 							<td id="plateCreateTime"></td>
 							<!-- 更新时间 -->
@@ -407,6 +442,62 @@
 				</div>
 			</div>
 			<!--########################################### 板块管理-end ###########################################-->
+
+			<!--########################################### 轮播图管理 ###########################################-->
+			<div class="row lbtgl admin-h1" style="display: none;">
+				<h1>
+					轮播图信息
+					<!--新增按钮-->
+					<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#slider_Add" id="slider_add" style="display: none;">新增</button>
+				</h1>
+				<div class="col-md-12 " style="background-color: #fff; border-top: 3px solid #3cb6bc; top: 8px;">
+					<table class="table">
+						<thead>
+						<tr>
+							<th>序号</th>
+							<th>文字内容</th>
+							<th>文字链接</th>
+							<th>轮播图</th>
+							<th>创建时间</th>
+							<th class="text-center">操作</th>
+						</tr>
+						</thead>
+						<!-- 轮播图列表 - 模板 -->
+						<tbody id="slider_hide" style="display: none;">
+						<tr>
+							<!-- 序号 -->
+							<td id="sliderNum"></td>
+							<!-- 文字内容 -->
+							<td id="sliderText"></td>
+							<!-- 文字链接 -->
+							<td>
+								<a id="sliderTextUrl" target="_blank">详情</a>
+							</td>
+							<!-- 轮播图 -->
+							<td id="sliderImageUrl">
+								<a target="_brank">
+									<img style="position: relative; width: 100px;">
+								</a>
+							</td>
+							<!-- 创建时间 -->
+							<td id="sliderCreateTime"></td>
+							<!-- 操作 -->
+							<td class=" text-center" id="slider_caozuo">
+								<!-- 未登录 -->
+								<span id="form_slider_notlogin" class="glyphicon glyphicon-ban-circle" style="display: none;"></span>
+								<!-- 删除 -->
+								<form id="form_delSlider" method="delete" style="display: none;">
+									<button type="button" class="btn btn-danger btn-sm">删除</button>
+								</form>
+							</td>
+						</tr>
+						</tbody>
+						<!-- 轮播图列表-实际数据 -->
+						<tbody id="slider_all"></tbody>
+					</table>
+				</div>
+			</div>
+			<!--########################################### 轮播图管理-end ###########################################-->
 
 			<!--########################################### 访问记录 ###########################################-->
 			<div class="row fwjl admin-h1" style="display: none;">
@@ -474,6 +565,7 @@
 <script src="${APP_PATH }/static/js/admin/article.js"></script>
 <script src="${APP_PATH }/static/js/admin/visit.js"></script>
 <script src="${APP_PATH }/static/js/admin/plate.js"></script>
+<script src="${APP_PATH }/static/js/admin/slider.js"></script>
 <script src="${APP_PATH }/static/js/visit/visitCharts.js"></script>
 <script src="${APP_PATH }/static/js/phones_pc.js"></script>
 

@@ -9,8 +9,6 @@
 <%
 	pageContext.setAttribute("APP_PATH", request.getContextPath());
 %>
-
-<link href="${APP_PATH }/static/bootstrap/css/bootstrap.css" rel="stylesheet" />
 <link href="${APP_PATH }/static/css/base.css" rel="stylesheet" />
 </head>
 <body>
@@ -20,7 +18,7 @@
 	<jsp:include page="/admin/content.jsp"></jsp:include>
 	<!-- 管理员页面-登录、注册 -->
 	<jsp:include page="/admin/login.jsp"></jsp:include>
-	<!-- 管理员页面-新增文章 -->
+	<!-- 管理员页面-新增版块 -->
 	<jsp:include page="/admin/plate.jsp"></jsp:include>
 </body>
 </html>

@@ -1,250 +1,197 @@
 package com.liang.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.liang.bean.impl.ArticleImpl;
-import com.liang.utils.PageUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.liang.bean.Article;
-import com.liang.dao.ArticleMapper;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.PostConstruct;
-
-@Service
-public class ArticleService {
-	@Autowired
-	ArticleMapper articleMapper;
-	@Autowired
-	PageUtil pageUtil;
-
-	// 用户系统-文章初始条数（第一页）
-	private int articlePageSize;
-	// 管理系统-文章初始条数（第一页）
-	private int adminArticlePageSize;
-
-	@PostConstruct
-	private void init(){
-		articlePageSize = pageUtil.getArticlePageSize();
-		adminArticlePageSize = pageUtil.getAdminArticlePageSize();
-	}
+public interface ArticleService {
+    /**
+     * 向数据库插入发帖信息
+     *
+     * @param file
+     * @param article
+     * @param userid
+     * @return
+     * @throws Exception
+     */
+    long setArticle(MultipartFile file, Article article, String userid) throws Exception;
 
     /**
-	 * 向数据库插入发帖信息
-	 * @param article
-	 */
-	public void setArticle(Article article) {
-		
-		articleMapper.insert(article);
-	}
-
-	/**
-	 * 按fid删除文章
-	 * @param fid
-	 */
-	public void deleteArticle(String fid) {
-
-		articleMapper.deleteByKey(fid);
-	}
-
-	/**
-	 * 删除用户对应的文章信息(按userid)
-	 * @param userid
-	 */
-	public void deleteArticleUserid(String userid) {
-
-		articleMapper.deleteByUserid(userid);
-	}
-
-	/**
-	 * 修改文章
-	 * @param article
-	 */
-	public void updateArticle(Article article) {
-
-		articleMapper.updateByKey(article);
-	}
-
-	/**
-	 * 更改文章审核状态
-	 * @param article
-	 */
-	public void updateArticleStatus(Article article) {
-
-		articleMapper.updateStatusByKey(article);
-	}
-
-	/**
-	 * 获取发帖表信息（分页）
-	 * @param pageStart
-	 * @param pageSize
-	 * @return
-	 */
-	public List<ArticleImpl> getArticle(int pageStart, int pageSize, String userid) {
-		Map<String, Object> map = new HashMap<>();
-		if (pageStart == 1) {
-			map.put("offset",(pageStart-1)*pageSize);
-		} else {
-			map.put("offset",(pageStart-2)*pageSize + articlePageSize);
-		}
-		map.put("limit", pageSize);
-		map.put("userid", userid);
-
-		return articleMapper.selectPassArticleImplPaging(map);
-	}
-
-	/**
-	 * 获取发帖表信息（分页）
-	 * @param bid 按板块查询
-	 * @param pageStart
-	 * @param pageSize
-	 * @return
-	 */
-	public List<ArticleImpl> getArticleBid(String bid, int pageStart, int pageSize, String userid) {
-		Map<String, Object> map = new HashMap<>();
-		if (pageStart == 1) {
-			map.put("offset",(pageStart-1)*pageSize);
-		} else {
-			map.put("offset",(pageStart-2)*pageSize + articlePageSize);
-		}
-		map.put("bid", bid);
-		map.put("limit", pageSize);
-		map.put("userid", userid);
-
-		return articleMapper.selectPassArticleImplPaging(map);
-	}
-
-	/**
-	 * 查询发帖表信息（分页）-管理员
-	 * @param pageStart
-	 * @param pageSize
-	 * @return
-	 */
-	public List<ArticleImpl> getArticleAdmin(int pageStart, int pageSize) {
-		Map<String, Object> map = new HashMap<>();
-		if (pageStart == 1) {
-			map.put("offset",(pageStart-1)*pageSize);
-		} else {
-			map.put("offset",(pageStart-2)*pageSize + adminArticlePageSize);
-		}
-		map.put("limit",pageSize);
-		return articleMapper.selectArticleImplPaging(map);
-	}
-
-	/**
-	 * 按userid查询发帖表信息（通过审核）
-	 * @param userid
-	 * @return
-	 */
-	public List<Article> getPassArticleUserid(String userid) {
-		
-		return articleMapper.selectPassArticleByUserid(userid);
-	}
-
-	/**
-	 * 按userid获取文章信息（所有审核状态）
-	 * @param userid
-	 * @return
-	 */
-	public List<Article> getArticleUserid(String userid) {
-
-		return articleMapper.selectArticleByUserid(userid);
-	}
-
-	/**
-	 * 获取userid的总文章数
-	 * @param map
-	 * @return
-	 */
-	public int getArticleCountByUserid(Map<String, Object> map) {
-
-		return articleMapper.selectArticleCountByUserid(map);
-	}
-
-	/**
-	 * 按fid查询发帖表信息
-	 * @return
-	 */
-	public Article getArticleKey(String fid) {
-
-		return articleMapper.selectArticleByKey(fid);
-	}
-
-	/**
-	 * 按fid查询发帖表信息
-	 * @param fid
-	 * @param userid
-	 * @return
-	 */
-	public ArticleImpl getArticleFidUserid(String fid, String userid) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("fid", fid);
-		map.put("userid", userid);
-
-		return articleMapper.selectArticleImplByKeyU(map);
-	}
-
-	/**
-	 * 总贴数
-	 * @return
-	 */
-    public int getCount() {
-    	return articleMapper.selectCount();
-    }
+     * 上传图片-editor.md
+     *
+     * @param file
+     * @return
+     * @throws Exception
+     */
+    long uploadPicture(MultipartFile file) throws Exception;
 
     /**
-	 * 总贴数
-	 * @return
-	 */
-    public int getPassArticleCountByBid(String bid) {
-    	return articleMapper.selectPassArticleCountByBid(bid);
-    }
+     * 按fid删除文章
+     *
+     * @param fid
+     */
+    void deleteArticle(String fid);
 
-	/**
-	 * 热门文章
-	 * @return
-	 */
-	public List<Article> getHotArticle() {
-		return articleMapper.selectHotArticle();
-	}
+    /**
+     * 删除用户对应的文章信息(按userid)
+     *
+     * @param userid
+     */
+    void deleteArticleUserid(String userid);
 
-	/**
-	 * 获取userid用户评论过的文章信息
-	 * @param map
-	 * @return
-	 */
-    public List<ArticleImpl> getAnswerArticleUserid(Map<String, Object> map) {
-		return articleMapper.selectArticleImplByUserid(map);
-    }
+    /**
+     * 修改文章
+     *
+     * @param file
+     * @param article
+     * @throws Exception
+     */
+    long updateArticle(MultipartFile file, Article article) throws Exception;
 
-	/**
-	 * 获取userid评论过的文章总数
-	 * @param map
-	 * @return
-	 */
-	public int getAnswerArticleCountByUserid(Map<String, Object> map) {
-		return articleMapper.selectArticleImplCountByUserid(map);
-	}
+    /**
+     * 修改文章（无图）
+     *
+     * @param article
+     * @throws Exception
+     */
+    void updateArticle(Article article);
 
-	/**
-	 * 按userid获取收藏的文章信息
-	 * @param map
-	 * @return
-	 */
-    public List<ArticleImpl> getCollectArticleUserid(Map<String, Object> map) {
-		return articleMapper.selectCollectArticleImplByUserid(map);
-    }
+    /**
+     * 更改文章审核状态
+     *
+     * @param article
+     */
+    void updateArticleStatus(Article article);
 
-	/**
-	 * 获取userid收藏总数
-	 * @param map
-	 * @return
-	 */
-	public int getCollectCountByUserid(Map<String, Object> map) {
+    /**
+     * 记录（+1）文章访问量
+     *
+     * @param fid
+     */
+    void updateArticlePV(String fid);
 
-		return articleMapper.selectCollectCountByUserid(map);
-	}
+    /**
+     * 获取发帖表信息（分页）
+     *
+     * @param pageStart
+     * @param pageSize
+     * @return
+     */
+    List<ArticleImpl> getArticle(int pageStart, int pageSize, String userid);
+
+    /**
+     * 获取发帖表信息（分页）
+     *
+     * @param bid       按板块查询
+     * @param pageStart
+     * @param pageSize
+     * @return
+     */
+    List<ArticleImpl> getArticleBid(String bid, int pageStart, int pageSize, String userid);
+
+    /**
+     * 查询发帖表信息（分页）-管理员
+     *
+     * @param pageStart
+     * @param pageSize
+     * @return
+     */
+    List<ArticleImpl> getArticleAdmin(int pageStart, int pageSize);
+
+    /**
+     * 按userid查询发帖表信息（通过审核）
+     *
+     * @param userid
+     * @return
+     */
+    List<Article> getPassArticleUserid(String userid);
+
+    /**
+     * 按userid获取文章信息（所有审核状态）
+     *
+     * @param userid
+     * @return
+     */
+    List<Article> getArticleUserid(String userid);
+
+    /**
+     * 获取userid的总文章数
+     *
+     * @param map
+     * @return
+     */
+    int getArticleCountByUserid(Map<String, Object> map);
+
+    /**
+     * 按fid查询发帖表信息
+     *
+     * @return
+     */
+    Article getArticleKey(String fid);
+
+    /**
+     * 按fid查询发帖表信息
+     *
+     * @param fid
+     * @param userid
+     * @return
+     */
+    ArticleImpl getArticleFidUserid(String fid, String userid);
+
+    /**
+     * 总贴数
+     *
+     * @return
+     */
+    int getCount();
+
+    /**
+     * 总贴数
+     *
+     * @return
+     */
+    int getPassArticleCountByBid(String bid);
+
+    /**
+     * 热门文章
+     *
+     * @return
+     */
+    List<Article> getHotArticle();
+
+    /**
+     * 获取userid用户评论过的文章信息
+     *
+     * @param map
+     * @return
+     */
+    List<ArticleImpl> getAnswerArticleUserid(Map<String, Object> map);
+
+    /**
+     * 获取userid评论过的文章总数
+     *
+     * @param map
+     * @return
+     */
+    int getAnswerArticleCountByUserid(Map<String, Object> map);
+
+    /**
+     * 按userid获取收藏的文章信息
+     *
+     * @param map
+     * @return
+     */
+    List<ArticleImpl> getCollectArticleUserid(Map<String, Object> map);
+
+    /**
+     * 获取userid收藏总数
+     *
+     * @param map
+     * @return
+     */
+    int getCollectCountByUserid(Map<String, Object> map);
+
 }

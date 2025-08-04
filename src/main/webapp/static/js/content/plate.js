@@ -16,7 +16,7 @@ function getBid(bid, bname) {
 
     $.ajax({
         //几个参数需要注意一下
-        url: APP_PATH + "/api/rest/nanshengbbs/v3.0/article/getArticleBid/" + bid ,
+        url: APP_PATH + apiUrl + "/article/getArticleBid/" + bid ,
         type: "get",//方法类型
         dataType: "json",//预期服务器返回的数据类型
         success: function (data) {

@@ -4,9 +4,9 @@
  * @param bid 板块id
  */
 function appendMore(pageStart, bid) {
-	var url = "/api/rest/nanshengbbs/v3.0/article/appendMore?pageStart=" + pageStart;
+	var url = apiUrl + "/article/appendMore?pageStart=" + pageStart;
 	if (typeof(bid) != "undefined") {
-		url = "/api/rest/nanshengbbs/v3.0/article/appendMore?bid=" + bid + "&pageStart=" + pageStart;
+		url = apiUrl + "/article/appendMore?bid=" + bid + "&pageStart=" + pageStart;
 	}
 	$.ajax({
 		url: APP_PATH + url,

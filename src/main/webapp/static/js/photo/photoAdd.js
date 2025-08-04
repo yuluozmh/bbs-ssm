@@ -30,7 +30,7 @@ function photoProAdd() {
     }
 
     $.ajax({
-        url: APP_PATH + "/api/rest/nanshengbbs/v3.0/photoPro/setPhotoPro",
+        url: APP_PATH + apiUrl + "/photoPro/setPhotoPro",
         type: "post",
         dataType: "json",
         data: $('#form_photoProAdd').serialize(),
@@ -43,7 +43,7 @@ function photoProAdd() {
                 $(".photoProAdd_name").val("");  //清空创建相册输入框
                 $('#photoProAdd').modal('hide');     // 关闭模态框
                 $.ajax({
-                    url: APP_PATH + "/api/rest/nanshengbbs/v3.0/photoPro/getPhoto",
+                    url: APP_PATH + apiUrl + "/photoPro/getPhoto",
                     type: "get",
                     dataType: "json",
                     success: function (data) {
@@ -106,7 +106,7 @@ function photoAdd() {
         //几个参数需要注意一下
         type: "post",//方法类型
         dataType: "json",//预期服务器返回的数据类型
-        url: APP_PATH + "/tbPhotoController/setTbPhoto/" + fid ,
+        url: APP_PATH + apiUrl + "/tbPhoto/setTbPhoto/" + fid ,
         data: formData ,
         // 告诉jQuery不要去处理发送的数据
         processData : false,
@@ -147,7 +147,7 @@ function photoAdd() {
                 $('#photoAdd').modal('hide');     // 关闭模态框
                 layer.msg(msg);
                 $.ajax({
-                    url: APP_PATH + "/api/rest/nanshengbbs/v3.0/photoPro/getPhotoProFid/" + fid,
+                    url: APP_PATH + apiUrl + "/photoPro/getPhotoProFid/" + fid,
                     type: "get",
                     dataType: "json",
                     success: function (data) {

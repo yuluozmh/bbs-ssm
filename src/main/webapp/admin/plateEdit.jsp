@@ -23,7 +23,7 @@
 					<p class="text-center">有意思的板块名可以吸引更多的文章</p>
 				</div>
 				<div class="modal-body">
-					<form id="form_updatePlate">
+					<form id="form_updatePlate_show">
 						<p class="text-muted text-center">原板块名：<small class="text-primary" id="plateEdit_name"></small></p>
 						<p class="text-muted text-warning">准备修改为：</p>
 						<div class="form-group">

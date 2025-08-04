@@ -17,7 +17,6 @@
 	<jsp:include page="/login/login.jsp"></jsp:include>
 	<!-- 我的主页-基本信息设置 -->
 	<jsp:include page="/head/setup.jsp"></jsp:include>
-
 	<!-- 我的主页-主体内容 -->
 	<jsp:include page="/content/myHome.jsp"></jsp:include>
 	<!-- 我的主页-编辑个人资料 -->
@@ -26,5 +25,7 @@
 	<jsp:include page="/content/userPhoto.jsp"></jsp:include>
 	<!-- 我的主页-收藏文章展示 -->
 	<jsp:include page="/content/collectArticle.jsp"></jsp:include>
+	<!-- 首页-页脚 -->
+	<jsp:include page="/head/footer.jsp"></jsp:include>
 </body>
 </html>

@@ -76,6 +76,8 @@ function getUserList(data) {
         $("#userFamily").html(listUser.family);
         // 简介
         $("#userIntro").html(listUser.intro);
+        // 文章数
+        $("#userArticleSum").html(listUser.articleSum);
         // 创建时间
         $("#userCreateTime").html(dateTimeFormat(listUser.createTime));
         // 更新时间
@@ -124,6 +126,12 @@ function getArticleList(data) {
         $("#articleUsername").html(listArticle.name);
         // 所属板块
         $("#articleBname").html(listArticle.bname);
+        // 收藏数
+        $("#articleCollect").html(listArticle.collectCount);
+        // 点赞数
+        $("#articleEnjoy").html(listArticle.enjoyCount);
+        // 浏览量
+        $("#articlePV").html(listArticle.pv);
         // 创建时间
         $("#articleCreateTime").html(dateTimeFormat(listArticle.createTime));
         // 更新时间
@@ -205,6 +213,8 @@ function getPlateList(data) {
         $("#plateNum").html(plate_num);
         // 版块名
         $("#plateName").html(plate.bname);
+        // 文章数
+        $("#plateArticleSum").html(plate.articleSum);
         // 创建时间
         $("#plateCreateTime").html(dateTimeFormat(plate.createTime));
         // 更新时间
@@ -268,6 +278,53 @@ function getVisitList(data) {
 }
 /*########################################### 访问管理-end ############################################################*/
 
+/*########################################### 轮播图管理 ############################################################*/
+// 构造轮播图列表信息
+function getSliderList(sliders) {
+    var slider_all = "";
+    // 新增按钮
+    if (aname !== ""){  // 已登录
+        $("#slider_add").show();
+    }
+    var slider_num = 0;   //计数
+    for (var i=0;i<sliders.length;i++){
+        slider_num++;
+        var slider = sliders[i];
+        var id = slider.id;
+
+        // 序号
+        $("#sliderNum").html(slider_num);
+        // 文字内容
+        $("#sliderText").html(slider.text);
+        // 文字链接
+        $("#sliderTextUrl").attr("href", slider.textUrl);
+        // 轮播图
+        $("#sliderImageUrl > a").attr("href", slider.imageUrl);
+        $("#sliderImageUrl > a > img").attr("src", slider.imageUrl);
+        // 创建时间
+        $("#sliderCreateTime").html(dateFormat(slider.createTime));
+        // 操作
+        var form_delSlider_id = "form_delSlider_" + id;
+        $("#form_delSlider").attr("id", form_delSlider_id);
+        // 删除
+        $("#" + form_delSlider_id + " button").attr("onclick", "slider_del('" + id + "')");
+        if (aname === ""){  // 未登录
+            $("#form_slider_notlogin").show();
+            $("#" + form_delSlider_id).hide();
+        } else {
+            $("#form_slider_notlogin").hide();
+            $("#" + form_delSlider_id).show();
+        }
+        slider_all = slider_all + $("#slider_hide").html();
+
+        // 删除-复原
+        $("#" + form_delSlider_id).attr("id", "form_delSlider");
+    }
+
+    return slider_all;
+}
+/*########################################### 轮播图管理-end ############################################################*/
+
 /**
  * 构造页信息
  * @param data 分页相关数据
@@ -286,6 +343,9 @@ function getPaging(data, type) {
     } else if (type == "visit") {  // 访问
         pagingTypeId = "#listVisit_page";
         onclick = "visitPage";
+    } else if (type == "donate") {  // 捐赠
+        pagingTypeId = "#listDonate_page";
+        onclick = "donatePage";
     }
 
     // 首页
