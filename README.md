@@ -44,17 +44,6 @@
 
   ![](https://76.nansin.top/bbs_ssm/bbs-管理系统功能结构图2.8.2.png)
 
-## 版本更新
-
-如果可以帮忙点一次`Star`和`Fork`
-
-|  版本号  | 下载地址                                                     | 详情说明                                                     |   时间    |
-| :------: | :----------------------------------------------------------- | :----------------------------------------------------------- | :-------: |
-| `v2.8.*` | github：[bbs-ssmv2.8.2](https://github.com/maliangnansheng/bbs-ssm/releases/download/v2.8.2/bbs-ssmv2.8.2.zip)<br/>gitee：[bbs-ssmv2.8.2](https://gitee.com/maliangnansheng/bbs-ssm/attach_files/409400/download) | [v2.8.2](https://bbs.nansin.top/detail/28)<br>[v2.8.1](https://bbs.nansin.top/detail/37) | `2020.06` |
-|  `v2.6`  | github：[bbs-ssmv2.6](https://github.com/maliangnansheng/bbs-ssm/releases/download/v2.6/bbs-ssmv2.6.zip)<br/>gitee：[bbs-ssmv2.6](https://gitee.com/maliangnansheng/bbs-ssm/attach_files/322557/download) | [v2.6](https://bbs.nansin.top/detail/27)                 | `2019.11` |
-|  `v2.0`  | github：[bbs-ssmv2.0](https://github.com/maliangnansheng/bbs-ssm/releases/download/v2.0/bbs-ssmv2.0.zip)<br/>gitee：[bbs-ssmv2.0](https://gitee.com/maliangnansheng/bbs-ssm/attach_files/322579/download) | [v2.0](https://bbs.nansin.top/detail/26)                 | `2019.05` |
-|  `v1.0`  | github：[bbs-ssmv1.0](https://github.com/maliangnansheng/bbs-ssm/releases/download/v1.0/bbs-ssmv1.0.zip)<br/>gitee：[bbs-ssmv1.0](https://gitee.com/maliangnansheng/bbs-ssm/attach_files/322556/download) | [v1.0](https://bbs.nansin.top/detail/26)                 | `2018.0`  |
-
 ## 项目源码
 
 如果可以帮忙点一次`Star`和`Fork`
