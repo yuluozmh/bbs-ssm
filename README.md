@@ -10,7 +10,7 @@
 
 ## 关于项目
 
-- 南生论坛基于`SSM`框架，自适应手机端和电脑端，界面简洁美观，功能完善。分为[用户系统](https://ssm.nansin.top)和[管理系统](https://ssm.nansin.top/admin)两部分
+- 南生论坛基于`SSM`框架，自适应手机端和电脑端，界面简洁美观，功能完善。分为 **用户系统** 和 **管理系统** 两部分
 - 该论坛适合`初学SSM`童鞋学习。主要涉及技术包括`Spring 、SpringMVC 、MyBatis 、Redis、MySQL 、Bootstrap 、jQuery 、Ajax 、Layer、ECharts、Editor.md`  
 
 ## 默认账号
