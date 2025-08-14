@@ -13,15 +13,9 @@
 - 南生论坛基于`SSM`框架，自适应手机端和电脑端，界面简洁美观，功能完善。分为[用户系统](https://ssm.nansin.top)和[管理系统](https://ssm.nansin.top/admin)两部分
 - 该论坛适合`初学SSM`童鞋学习。主要涉及技术包括`Spring 、SpringMVC 、MyBatis 、Redis、MySQL 、Bootstrap 、jQuery 、Ajax 、Layer、ECharts、Editor.md`  
 
-## 在线演示
+## 默认账号
 
-`手机上也有不错的展示效果...`
-
-用户系统：[https://ssm.nansin.top](https://ssm.nansin.top) - (测试账号：`椿/123456`；也可自己注册)
-
-管理系统：[https://ssm.nansin.top/admin](https://ssm.nansin.top/admin)    **↓↓↓**
-
-> 为了避免大家删除数据，暂时不给后台账号，望理解！
+用户系统 (`马亮南生/123456`)、管理系统 (`admin/admin`)
 
 ## 推荐理由
 
